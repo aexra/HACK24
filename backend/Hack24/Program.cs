@@ -7,6 +7,7 @@ using Web.Data.Contexts;
 using Web.Data.Models;
 using Web.Interfaces;
 using Web.Services;
+using Hack24.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,6 +42,8 @@ builder.Services.AddSwaggerGen(option =>
         }
     });
 });
+
+builder.Services.AddSignalR();
 
 builder.Services.AddDbContext<IdentityContext>();
 builder.Services.AddDbContext<DataContext>();
@@ -101,6 +104,5 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-
 
 app.Run();

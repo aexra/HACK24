@@ -1,9 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Hack24.Data.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Web.Data.Contexts;
 
 public class DataContext : DbContext
 {
+    public DbSet<Notification> Notifications { get; set; }
+
     public string DbPath { get; }
 
     public DataContext()

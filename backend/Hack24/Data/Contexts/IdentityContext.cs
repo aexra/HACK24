@@ -14,5 +14,5 @@ public class IdentityContext : IdentityDbContext<User>
         DbPath = "Data/Databases/Identity.db";
     }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) => optionsBuilder.UseSqlite($"Data Source={DbPath}");
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) => optionsBuilder.UseNpgsql($"Data Source={DbPath}");
 }

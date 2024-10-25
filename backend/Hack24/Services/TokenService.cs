@@ -4,7 +4,7 @@ using Web.Interfaces;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
-using IdentityModel.Tokens.Jwt;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace Web.Services;
 

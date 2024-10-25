@@ -11,9 +11,5 @@ public class DataContext : DbContext
         DbPath = "Data/Databases/Data.db";
     }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) => optionsBuilder.UseSqlite($"Data Source={DbPath}");
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        
-    }
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) => optionsBuilder.UseNpgsql($"Data Source={DbPath}");
 }

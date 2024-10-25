@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Shield.Web.Data.Models;
+using Web.Data.Models;
 using Microsoft.EntityFrameworkCore;
 
 using DataAccess.DTOs;

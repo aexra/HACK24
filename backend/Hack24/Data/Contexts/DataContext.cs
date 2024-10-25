@@ -11,5 +11,5 @@ public class DataContext : DbContext
         DbPath = "Data/Databases/Data.db";
     }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) => optionsBuilder.UseNpgsql($"Data Source={DbPath}");
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) => optionsBuilder.UseNpgsql($"Host=localhost;Port=5432;Database=oggentoData;Username=postgres;Password=1234");
 }

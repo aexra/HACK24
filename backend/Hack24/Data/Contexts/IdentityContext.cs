@@ -14,9 +14,12 @@ public class IdentityContext : IdentityDbContext<User>
     public DbSet<Notification> Notifications { get; set; }
     public DbSet<Post> Posts { get; set; }
     public DbSet<RepeatForSoloChallenge> RepeatsForSoloChallenge { get; set; }
+    public DbSet<RepeatForSoloSelfChallenge> RepeatsForSoloSelfChallenge { get; set; }
     public DbSet<RequestToCompleteSoloChallenge> RequestsToCompleteSoloChallenge { get; set; }
     public DbSet<SoloChallenge> SoloChallenges { get; set; }
     public DbSet<SoloChallengeExpPerPlace> SoloChallengeExpsPerPlace { get; set; }
+    public DbSet<SoloSelfChallenge> SoloSelfChallenges { get; set; }
+    public DbSet<SoloSelfChallengeCatalog> SoloSelfChallengeCatalogs { get; set; }
 
 
     public string DbPath { get; }

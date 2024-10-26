@@ -14,4 +14,6 @@ public class SoloChallengeCatalog
 
     public int ChallengeTypeId { get; set; }
     public ChallengeType ChallengeType { get; set; }
+
+    public virtual ICollection<SoloChallenge> SoloChallenges { get; set; }
 }

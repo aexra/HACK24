@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Hack24.Data.Model;
+using System.ComponentModel.DataAnnotations;
 
 namespace Hack24.Data.Models;
 public class SoloChallenge
@@ -12,4 +13,6 @@ public class SoloChallenge
 
     public int SoloChallengeCatalogId { get; set; }
     public SoloChallengeCatalog SoloChallengeCatalog { get; set; }
+
+    public virtual ICollection<SoloChallengeExpPerPlace> Exps { get; set; }
 }

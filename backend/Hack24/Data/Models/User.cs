@@ -15,4 +15,9 @@ public class User : IdentityUser
 
     public int? PostId { get; set; }
     public virtual Post Post { get; set; }
+
+    public virtual ICollection<Notification> Notifications { get; set; }
+    public virtual ICollection<CompletedSoloChallenge> CompletedSoloChallenges { get; set; }
+    public virtual ICollection<RequestToCompleteSoloChallenge> RequestsToCompleteSoloChallenge { get; set; }
+
 }

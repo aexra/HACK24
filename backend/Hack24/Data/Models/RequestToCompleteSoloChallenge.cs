@@ -15,4 +15,6 @@ public class RequestToCompleteSoloChallenge
 
     public int SoloChallengeId { get; set; }
     public virtual SoloChallenge SoloChallenge { get; set; }
+
+    public virtual ICollection<ImageForRequestToCompleteSoloChallenge> Images { get; set; }
 }

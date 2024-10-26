@@ -1,0 +1,10 @@
+.App {
+    height: 100vh;
+}
+
+.Landing {
+    width: 400px;
+    height: 500px;
+    background: violet;
+    margin-top: 100px;
+}

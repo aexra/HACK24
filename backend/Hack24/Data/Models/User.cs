@@ -21,4 +21,7 @@ public class User : IdentityUser
     public virtual ICollection<Notification> Notifications { get; set; }
     public virtual ICollection<CompletedSoloChallenge> CompletedSoloChallenges { get; set; }
     public virtual ICollection<RequestToCompleteSoloChallenge> RequestsToCompleteSoloChallenge { get; set; }
+    
+    public virtual UserTeam UserTeam { get; set; }
+    public virtual Team Team => UserTeam.Team;
 }

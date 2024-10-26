@@ -1,10 +1,15 @@
-import Landing from "../components/Landing/Landing";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import classes from "./App.module.css"
+import LoginPage from "../pages/LoginPage/index";
 
 function App() {
   return (
     <div className={classes.App}>
-      <Landing className={classes.Landing} header={"HUI"}>Aboba</Landing>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<LoginPage/>}/>
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }

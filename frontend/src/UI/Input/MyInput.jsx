@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import './Input.css';
-import Desc from './Desc';
-import ErrorMessage from '../ErrorMessage/ErrorMessage';
 
 const MyInput = ({ label, rightAddon, onChange, errorMessage }) => {
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -26,7 +24,7 @@ const MyInput = ({ label, rightAddon, onChange, errorMessage }) => {
                     type={rightAddon ? (isPasswordVisible ? "text" : "password") : "text"}
                     onChange={onChange}
                 />
-                {errorMessage && <p className="error-message">{message}</p>}
+                {errorMessage && <p className="error-message">{errorMessage}</p>}
             </div>
         </div>
     );

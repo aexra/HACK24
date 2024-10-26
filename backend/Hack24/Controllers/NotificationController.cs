@@ -11,11 +11,11 @@ namespace Hack24.Controllers;
 [Route("api/notifications")]
 public class NotificationController : ControllerBase
 {
-    private readonly DataContext _context;
+    private readonly IdentityContext _context;
     private readonly IHubContext<NotificationHub> _hubContext;
     private readonly NotificationService _notificationService;
 
-    public NotificationController(DataContext context, IHubContext<NotificationHub> hubContext, NotificationService notificationService)
+    public NotificationController(IdentityContext context, IHubContext<NotificationHub> hubContext, NotificationService notificationService)
     {
         _context = context;
         _hubContext = hubContext;

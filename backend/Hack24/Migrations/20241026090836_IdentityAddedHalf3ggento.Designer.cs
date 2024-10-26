@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Web.Data.Contexts;
@@ -11,9 +12,11 @@ using Web.Data.Contexts;
 namespace Hack24.Migrations
 {
     [DbContext(typeof(IdentityContext))]
-    partial class IdentityContextModelSnapshot : ModelSnapshot
+    [Migration("20241026090836_IdentityAddedHalf3ggento")]
+    partial class IdentityAddedHalf3ggento
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -90,7 +93,7 @@ namespace Hack24.Migrations
 
                     b.HasIndex("TeamChallengeId");
 
-                    b.ToTable("CompletedTeamChallenges");
+                    b.ToTable("CompletedTeamChallenge");
                 });
 
             modelBuilder.Entity("Hack24.Data.Models.ImageForRequestToCompleteSoloChallenge", b =>
@@ -134,7 +137,7 @@ namespace Hack24.Migrations
 
                     b.HasIndex("RequestToCompleteTeamChallengeId");
 
-                    b.ToTable("ImagesForRequestToCompleteTeamChallenge");
+                    b.ToTable("ImageForRequestToCompleteTeamChallenge");
                 });
 
             modelBuilder.Entity("Hack24.Data.Models.Level", b =>
@@ -226,32 +229,6 @@ namespace Hack24.Migrations
                     b.ToTable("RepeatsForSoloSelfChallenge");
                 });
 
-            modelBuilder.Entity("Hack24.Data.Models.RepeatForTeamChallenge", b =>
-                {
-                    b.Property<int>("TeamChallengeId")
-                        .HasColumnType("integer");
-
-                    b.Property<byte>("RestPeriodInDays")
-                        .HasColumnType("smallint");
-
-                    b.HasKey("TeamChallengeId");
-
-                    b.ToTable("RepeatsForTeamChallenge");
-                });
-
-            modelBuilder.Entity("Hack24.Data.Models.RepeatForTeamSelfChallenge", b =>
-                {
-                    b.Property<int>("TeamSelfChallengeId")
-                        .HasColumnType("integer");
-
-                    b.Property<byte>("RestPeriodInDays")
-                        .HasColumnType("smallint");
-
-                    b.HasKey("TeamSelfChallengeId");
-
-                    b.ToTable("RepeatsForTeamSelfChallenge");
-                });
-
             modelBuilder.Entity("Hack24.Data.Models.RequestToCompleteSoloChallenge", b =>
                 {
                     b.Property<int>("Id")
@@ -307,7 +284,7 @@ namespace Hack24.Migrations
 
                     b.HasIndex("TeamId");
 
-                    b.ToTable("RequestsToCompleteTeamChallenge");
+                    b.ToTable("RequestToCompleteTeamChallenge");
                 });
 
             modelBuilder.Entity("Hack24.Data.Models.SoloChallenge", b =>
@@ -360,7 +337,7 @@ namespace Hack24.Migrations
 
                     b.HasIndex("ChallengeTypeId");
 
-                    b.ToTable("SoloChallengeCatalogs");
+                    b.ToTable("SoloChallengeCatalog");
                 });
 
             modelBuilder.Entity("Hack24.Data.Models.SoloSelfChallenge", b =>
@@ -438,7 +415,7 @@ namespace Hack24.Migrations
 
                     b.HasIndex("TeamTypeId");
 
-                    b.ToTable("Teams");
+                    b.ToTable("Team");
                 });
 
             modelBuilder.Entity("Hack24.Data.Models.TeamChallenge", b =>
@@ -462,7 +439,7 @@ namespace Hack24.Migrations
 
                     b.HasIndex("TeamChallengeCatalogId");
 
-                    b.ToTable("TeamChallenges");
+                    b.ToTable("TeamChallenge");
                 });
 
             modelBuilder.Entity("Hack24.Data.Models.TeamChallengeCatalog", b =>
@@ -496,7 +473,7 @@ namespace Hack24.Migrations
 
                     b.HasIndex("TeamTypeId");
 
-                    b.ToTable("TeamChallengeCatalogs");
+                    b.ToTable("TeamChallengeCatalog");
                 });
 
             modelBuilder.Entity("Hack24.Data.Models.TeamChallengeExpPerPlace", b =>
@@ -509,7 +486,7 @@ namespace Hack24.Migrations
 
                     b.HasKey("TeamChallengeId", "Place");
 
-                    b.ToTable("TeamChallengeExps");
+                    b.ToTable("TeamChallengeExpPerPlace");
                 });
 
             modelBuilder.Entity("Hack24.Data.Models.TeamSelfChallenge", b =>
@@ -533,7 +510,7 @@ namespace Hack24.Migrations
 
                     b.HasIndex("TeamSelfChallengeCatalogId");
 
-                    b.ToTable("TeamSelfChallenges");
+                    b.ToTable("TeamSelfChallenge");
                 });
 
             modelBuilder.Entity("Hack24.Data.Models.TeamSelfChallengeCatalog", b =>
@@ -564,7 +541,7 @@ namespace Hack24.Migrations
 
                     b.HasIndex("TeamId");
 
-                    b.ToTable("TeamSelfChallengeCatalogs");
+                    b.ToTable("TeamSelfChallengeCatalog");
                 });
 
             modelBuilder.Entity("Hack24.Data.Models.TeamType", b =>
@@ -581,24 +558,7 @@ namespace Hack24.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TeamTypes");
-                });
-
-            modelBuilder.Entity("Hack24.Data.Models.UserTeam", b =>
-                {
-                    b.Property<string>("UserId")
-                        .HasColumnType("text")
-                        .HasColumnOrder(0);
-
-                    b.Property<int>("TeamId")
-                        .HasColumnType("integer")
-                        .HasColumnOrder(1);
-
-                    b.HasKey("UserId", "TeamId");
-
-                    b.HasIndex("TeamId");
-
-                    b.ToTable("UserTeams");
+                    b.ToTable("TeamType");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -927,28 +887,6 @@ namespace Hack24.Migrations
                     b.Navigation("SoloSelfChallenge");
                 });
 
-            modelBuilder.Entity("Hack24.Data.Models.RepeatForTeamChallenge", b =>
-                {
-                    b.HasOne("Hack24.Data.Models.TeamChallenge", "Challenge")
-                        .WithMany()
-                        .HasForeignKey("TeamChallengeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Challenge");
-                });
-
-            modelBuilder.Entity("Hack24.Data.Models.RepeatForTeamSelfChallenge", b =>
-                {
-                    b.HasOne("Hack24.Data.Models.TeamSelfChallenge", "Challenge")
-                        .WithMany()
-                        .HasForeignKey("TeamSelfChallengeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Challenge");
-                });
-
             modelBuilder.Entity("Hack24.Data.Models.RequestToCompleteSoloChallenge", b =>
                 {
                     b.HasOne("Hack24.Data.Models.SoloChallenge", "SoloChallenge")
@@ -1119,25 +1057,6 @@ namespace Hack24.Migrations
                     b.Navigation("ChallengeType");
 
                     b.Navigation("Team");
-                });
-
-            modelBuilder.Entity("Hack24.Data.Models.UserTeam", b =>
-                {
-                    b.HasOne("Hack24.Data.Models.Team", "Team")
-                        .WithMany()
-                        .HasForeignKey("TeamId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Web.Data.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Team");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

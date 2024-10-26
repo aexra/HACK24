@@ -1,0 +1,6 @@
+.LoginPage {
+    background: linear-gradient(180deg, #FBA642 0%, #FAD13A 100%); 
+    flex-direction: column; 
+    justify-content: center;
+    align-items: center;
+}

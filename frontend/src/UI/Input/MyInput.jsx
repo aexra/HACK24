@@ -12,18 +12,21 @@ const MyInput = ({ label, rightAddon, onChange, errorMessage }) => {
 
     return (
         <div className="full_input">
-            <Desc
-                label={label}
-                rightAddon={rightAddon}
-                onToggle={togglePasswordVisibility}
-            />
+            <div className="label_and_addon">
+            <label className="input_label">{label}</label>
+            {rightAddon && (
+                <div className="right_addon" onClick={togglePasswordVisibility}>
+                    {rightAddon}
+                </div>
+            )}
+        </div>
             <div className="input_wrapper">
                 <input
                     className="myinput"
                     type={rightAddon ? (isPasswordVisible ? "text" : "password") : "text"}
                     onChange={onChange}
                 />
-                {errorMessage && <ErrorMessage message={errorMessage} />}
+                {errorMessage && <p className="error-message">{message}</p>}
             </div>
         </div>
     );

@@ -9,4 +9,6 @@ public class ChallengeType
 
     public virtual ICollection<SoloChallengeCatalog> SoloChallengeCatalogs { get; set; }
     public virtual ICollection<SoloSelfChallengeCatalog> SoloSelfChallengeCatalogs { get; set; }
+    public virtual ICollection<TeamChallengeCatalog> TeamChallengeCatalogs { get; set; }
+    public virtual ICollection<TeamSelfChallengeCatalog> TeamSelfChallengeCatalogs { get; set; }
 }

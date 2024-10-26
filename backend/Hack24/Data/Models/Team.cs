@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Web.Data.Models;
 
 namespace Hack24.Data.Models;
 public class Team
@@ -16,4 +17,7 @@ public class Team
 
     public virtual ICollection<RequestToCompleteTeamChallenge> CompleteRequests { get; set; }
     public virtual ICollection<CompletedTeamChallenge> CompletedChallenges { get; set; }
+    public virtual ICollection<UserTeam> UserTeams { get; set; }
+
+    public IEnumerable<User> Users => UserTeams.Select(x => x.User);
 }

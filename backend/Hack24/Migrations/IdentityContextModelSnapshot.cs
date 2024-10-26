@@ -22,6 +22,585 @@ namespace Hack24.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("Hack24.Data.Model.SoloChallengeExpPerPlace", b =>
+                {
+                    b.Property<int>("SoloChallengeId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Place")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Experience")
+                        .HasColumnType("integer");
+
+                    b.HasKey("SoloChallengeId", "Place");
+
+                    b.ToTable("SoloChallengeExpsPerPlace");
+                });
+
+            modelBuilder.Entity("Hack24.Data.Models.ChallengeType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ChallengeName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ChallengeTypes");
+                });
+
+            modelBuilder.Entity("Hack24.Data.Models.CompletedSoloChallenge", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("text")
+                        .HasColumnOrder(0);
+
+                    b.Property<int>("SoloChallengeId")
+                        .HasColumnType("integer")
+                        .HasColumnOrder(1);
+
+                    b.Property<int>("Number")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Place")
+                        .HasColumnType("integer");
+
+                    b.HasKey("UserId", "SoloChallengeId");
+
+                    b.HasIndex("SoloChallengeId");
+
+                    b.ToTable("CompletedSoloChallenges");
+                });
+
+            modelBuilder.Entity("Hack24.Data.Models.CompletedTeamChallenge", b =>
+                {
+                    b.Property<int>("TeamId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("TeamChallengeId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("TeamId", "TeamChallengeId");
+
+                    b.HasIndex("TeamChallengeId");
+
+                    b.ToTable("CompletedTeamChallenges");
+                });
+
+            modelBuilder.Entity("Hack24.Data.Models.ImageForRequestToCompleteSoloChallenge", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<byte[]>("Image")
+                        .IsRequired()
+                        .HasColumnType("bytea");
+
+                    b.Property<int>("RequestToCompleteSoloChallengeId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RequestToCompleteSoloChallengeId");
+
+                    b.ToTable("ImagesForRequestToCompleteSoloChallenge");
+                });
+
+            modelBuilder.Entity("Hack24.Data.Models.ImageForRequestToCompleteTeamChallenge", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<byte[]>("Image")
+                        .IsRequired()
+                        .HasColumnType("bytea");
+
+                    b.Property<int>("RequestToCompleteTeamChallengeId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RequestToCompleteTeamChallengeId");
+
+                    b.ToTable("ImagesForRequestToCompleteTeamChallenge");
+                });
+
+            modelBuilder.Entity("Hack24.Data.Models.Level", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<byte[]>("Image")
+                        .HasColumnType("bytea");
+
+                    b.Property<int>("MinimalExp")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Levels");
+                });
+
+            modelBuilder.Entity("Hack24.Data.Models.Notification", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("IsRead")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Notifications");
+                });
+
+            modelBuilder.Entity("Hack24.Data.Models.Post", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Posts");
+                });
+
+            modelBuilder.Entity("Hack24.Data.Models.RepeatForSoloChallenge", b =>
+                {
+                    b.Property<int>("SoloChallengeId")
+                        .HasColumnType("integer")
+                        .HasColumnOrder(0);
+
+                    b.Property<byte>("RestPeriodInDays")
+                        .HasColumnType("smallint");
+
+                    b.HasKey("SoloChallengeId");
+
+                    b.ToTable("RepeatsForSoloChallenge");
+                });
+
+            modelBuilder.Entity("Hack24.Data.Models.RepeatForSoloSelfChallenge", b =>
+                {
+                    b.Property<int>("SoloSelfChallengeId")
+                        .HasColumnType("integer");
+
+                    b.Property<byte>("RestPeriodInDays")
+                        .HasColumnType("smallint");
+
+                    b.HasKey("SoloSelfChallengeId");
+
+                    b.ToTable("RepeatsForSoloSelfChallenge");
+                });
+
+            modelBuilder.Entity("Hack24.Data.Models.RepeatForTeamChallenge", b =>
+                {
+                    b.Property<int>("TeamChallengeId")
+                        .HasColumnType("integer");
+
+                    b.Property<byte>("RestPeriodInDays")
+                        .HasColumnType("smallint");
+
+                    b.HasKey("TeamChallengeId");
+
+                    b.ToTable("RepeatsForTeamChallenge");
+                });
+
+            modelBuilder.Entity("Hack24.Data.Models.RepeatForTeamSelfChallenge", b =>
+                {
+                    b.Property<int>("TeamSelfChallengeId")
+                        .HasColumnType("integer");
+
+                    b.Property<byte>("RestPeriodInDays")
+                        .HasColumnType("smallint");
+
+                    b.HasKey("TeamSelfChallengeId");
+
+                    b.ToTable("RepeatsForTeamSelfChallenge");
+                });
+
+            modelBuilder.Entity("Hack24.Data.Models.RequestToCompleteSoloChallenge", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("Number")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("SoloChallengeId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SoloChallengeId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("RequestsToCompleteSoloChallenge");
+                });
+
+            modelBuilder.Entity("Hack24.Data.Models.RequestToCompleteTeamChallenge", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("TeamChallengeId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("TeamId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TeamChallengeId");
+
+                    b.HasIndex("TeamId");
+
+                    b.ToTable("RequestsToCompleteTeamChallenge");
+                });
+
+            modelBuilder.Entity("Hack24.Data.Models.SoloChallenge", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("End")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("SoloChallengeCatalogId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("Start")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SoloChallengeCatalogId");
+
+                    b.ToTable("SoloChallenges");
+                });
+
+            modelBuilder.Entity("Hack24.Data.Models.SoloChallengeCatalog", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ChallengeTypeId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsVoting")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ChallengeTypeId");
+
+                    b.ToTable("SoloChallengeCatalogs");
+                });
+
+            modelBuilder.Entity("Hack24.Data.Models.SoloSelfChallenge", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("End")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("SoloSelfChallengeCatalog")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("Start")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SoloSelfChallengeCatalog");
+
+                    b.ToTable("SoloSelfChallenges");
+                });
+
+            modelBuilder.Entity("Hack24.Data.Models.SoloSelfChallengeCatalog", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ChallengeTypeId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ChallengeTypeId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("SoloSelfChallengeCatalogs");
+                });
+
+            modelBuilder.Entity("Hack24.Data.Models.Team", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("TeamTypeId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TeamTypeId");
+
+                    b.ToTable("Teams");
+                });
+
+            modelBuilder.Entity("Hack24.Data.Models.TeamChallenge", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("End")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("Start")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("TeamChallengeCatalogId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TeamChallengeCatalogId");
+
+                    b.ToTable("TeamChallenges");
+                });
+
+            modelBuilder.Entity("Hack24.Data.Models.TeamChallengeCatalog", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ChallengeTypeId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsVoting")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("TeamTypeId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ChallengeTypeId");
+
+                    b.HasIndex("TeamTypeId");
+
+                    b.ToTable("TeamChallengeCatalogs");
+                });
+
+            modelBuilder.Entity("Hack24.Data.Models.TeamChallengeExpPerPlace", b =>
+                {
+                    b.Property<int>("TeamChallengeId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Place")
+                        .HasColumnType("integer");
+
+                    b.HasKey("TeamChallengeId", "Place");
+
+                    b.ToTable("TeamChallengeExps");
+                });
+
+            modelBuilder.Entity("Hack24.Data.Models.TeamSelfChallenge", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("End")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("Start")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("TeamSelfChallengeCatalogId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TeamSelfChallengeCatalogId");
+
+                    b.ToTable("TeamSelfChallenges");
+                });
+
+            modelBuilder.Entity("Hack24.Data.Models.TeamSelfChallengeCatalog", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ChallengeTypeId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("TeamId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ChallengeTypeId");
+
+                    b.HasIndex("TeamId");
+
+                    b.ToTable("TeamSelfChallengeCatalogs");
+                });
+
+            modelBuilder.Entity("Hack24.Data.Models.TeamType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TeamTypes");
+                });
+
+            modelBuilder.Entity("Hack24.Data.Models.UserTeam", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("text")
+                        .HasColumnOrder(0);
+
+                    b.Property<int>("TeamId")
+                        .HasColumnType("integer")
+                        .HasColumnOrder(1);
+
+                    b.HasKey("UserId", "TeamId");
+
+                    b.HasIndex("TeamId");
+
+                    b.ToTable("UserTeams");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -162,6 +741,9 @@ namespace Hack24.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("integer");
 
+                    b.Property<string>("Bio")
+                        .HasColumnType("text");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("text");
@@ -172,6 +754,15 @@ namespace Hack24.Migrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("boolean");
+
+                    b.Property<string>("FamilyInviteKey")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Hobby")
+                        .HasColumnType("text");
+
+                    b.Property<byte[]>("Image")
+                        .HasColumnType("bytea");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("boolean");
@@ -190,13 +781,22 @@ namespace Hack24.Migrations
                     b.Property<string>("PasswordHash")
                         .HasColumnType("text");
 
+                    b.Property<string>("Pets")
+                        .HasColumnType("text");
+
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("text");
 
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("boolean");
 
+                    b.Property<int?>("PostId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("SecurityStamp")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Telegram")
                         .HasColumnType("text");
 
                     b.Property<bool>("TwoFactorEnabled")
@@ -205,6 +805,9 @@ namespace Hack24.Migrations
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)");
+
+                    b.Property<string>("VK")
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -215,7 +818,326 @@ namespace Hack24.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex");
 
+                    b.HasIndex("PostId");
+
                     b.ToTable("AspNetUsers", (string)null);
+                });
+
+            modelBuilder.Entity("Hack24.Data.Model.SoloChallengeExpPerPlace", b =>
+                {
+                    b.HasOne("Hack24.Data.Models.SoloChallenge", "SoloChallenge")
+                        .WithMany("Exps")
+                        .HasForeignKey("SoloChallengeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("SoloChallenge");
+                });
+
+            modelBuilder.Entity("Hack24.Data.Models.CompletedSoloChallenge", b =>
+                {
+                    b.HasOne("Hack24.Data.Models.SoloChallenge", "SoloChallenge")
+                        .WithMany()
+                        .HasForeignKey("SoloChallengeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Web.Data.Models.User", "User")
+                        .WithMany("CompletedSoloChallenges")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("SoloChallenge");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Hack24.Data.Models.CompletedTeamChallenge", b =>
+                {
+                    b.HasOne("Hack24.Data.Models.TeamChallenge", "Challenge")
+                        .WithMany()
+                        .HasForeignKey("TeamChallengeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Hack24.Data.Models.Team", "Team")
+                        .WithMany("CompletedChallenges")
+                        .HasForeignKey("TeamId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Challenge");
+
+                    b.Navigation("Team");
+                });
+
+            modelBuilder.Entity("Hack24.Data.Models.ImageForRequestToCompleteSoloChallenge", b =>
+                {
+                    b.HasOne("Hack24.Data.Models.RequestToCompleteSoloChallenge", "RequestToCompleteSoloChallenge")
+                        .WithMany("Images")
+                        .HasForeignKey("RequestToCompleteSoloChallengeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("RequestToCompleteSoloChallenge");
+                });
+
+            modelBuilder.Entity("Hack24.Data.Models.ImageForRequestToCompleteTeamChallenge", b =>
+                {
+                    b.HasOne("Hack24.Data.Models.RequestToCompleteTeamChallenge", "RequestToCompleteTeamChallenge")
+                        .WithMany("Images")
+                        .HasForeignKey("RequestToCompleteTeamChallengeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("RequestToCompleteTeamChallenge");
+                });
+
+            modelBuilder.Entity("Hack24.Data.Models.Notification", b =>
+                {
+                    b.HasOne("Web.Data.Models.User", "User")
+                        .WithMany("Notifications")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Hack24.Data.Models.RepeatForSoloChallenge", b =>
+                {
+                    b.HasOne("Hack24.Data.Models.SoloChallenge", "SoloChallenge")
+                        .WithMany()
+                        .HasForeignKey("SoloChallengeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("SoloChallenge");
+                });
+
+            modelBuilder.Entity("Hack24.Data.Models.RepeatForSoloSelfChallenge", b =>
+                {
+                    b.HasOne("Hack24.Data.Models.SoloSelfChallenge", "SoloSelfChallenge")
+                        .WithMany()
+                        .HasForeignKey("SoloSelfChallengeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("SoloSelfChallenge");
+                });
+
+            modelBuilder.Entity("Hack24.Data.Models.RepeatForTeamChallenge", b =>
+                {
+                    b.HasOne("Hack24.Data.Models.TeamChallenge", "Challenge")
+                        .WithMany()
+                        .HasForeignKey("TeamChallengeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Challenge");
+                });
+
+            modelBuilder.Entity("Hack24.Data.Models.RepeatForTeamSelfChallenge", b =>
+                {
+                    b.HasOne("Hack24.Data.Models.TeamSelfChallenge", "Challenge")
+                        .WithMany()
+                        .HasForeignKey("TeamSelfChallengeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Challenge");
+                });
+
+            modelBuilder.Entity("Hack24.Data.Models.RequestToCompleteSoloChallenge", b =>
+                {
+                    b.HasOne("Hack24.Data.Models.SoloChallenge", "SoloChallenge")
+                        .WithMany()
+                        .HasForeignKey("SoloChallengeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Web.Data.Models.User", "User")
+                        .WithMany("RequestsToCompleteSoloChallenge")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("SoloChallenge");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Hack24.Data.Models.RequestToCompleteTeamChallenge", b =>
+                {
+                    b.HasOne("Hack24.Data.Models.TeamChallenge", "Challenge")
+                        .WithMany()
+                        .HasForeignKey("TeamChallengeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Hack24.Data.Models.Team", "Team")
+                        .WithMany("CompleteRequests")
+                        .HasForeignKey("TeamId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Challenge");
+
+                    b.Navigation("Team");
+                });
+
+            modelBuilder.Entity("Hack24.Data.Models.SoloChallenge", b =>
+                {
+                    b.HasOne("Hack24.Data.Models.SoloChallengeCatalog", "SoloChallengeCatalog")
+                        .WithMany("SoloChallenges")
+                        .HasForeignKey("SoloChallengeCatalogId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("SoloChallengeCatalog");
+                });
+
+            modelBuilder.Entity("Hack24.Data.Models.SoloChallengeCatalog", b =>
+                {
+                    b.HasOne("Hack24.Data.Models.ChallengeType", "ChallengeType")
+                        .WithMany("SoloChallengeCatalogs")
+                        .HasForeignKey("ChallengeTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ChallengeType");
+                });
+
+            modelBuilder.Entity("Hack24.Data.Models.SoloSelfChallenge", b =>
+                {
+                    b.HasOne("Hack24.Data.Models.SoloSelfChallengeCatalog", "Catalog")
+                        .WithMany("Challenges")
+                        .HasForeignKey("SoloSelfChallengeCatalog")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Catalog");
+                });
+
+            modelBuilder.Entity("Hack24.Data.Models.SoloSelfChallengeCatalog", b =>
+                {
+                    b.HasOne("Hack24.Data.Models.ChallengeType", "ChallengeType")
+                        .WithMany("SoloSelfChallengeCatalogs")
+                        .HasForeignKey("ChallengeTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Web.Data.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ChallengeType");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Hack24.Data.Models.Team", b =>
+                {
+                    b.HasOne("Hack24.Data.Models.TeamType", "Type")
+                        .WithMany()
+                        .HasForeignKey("TeamTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Type");
+                });
+
+            modelBuilder.Entity("Hack24.Data.Models.TeamChallenge", b =>
+                {
+                    b.HasOne("Hack24.Data.Models.TeamChallengeCatalog", "Catalog")
+                        .WithMany("Challenges")
+                        .HasForeignKey("TeamChallengeCatalogId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Catalog");
+                });
+
+            modelBuilder.Entity("Hack24.Data.Models.TeamChallengeCatalog", b =>
+                {
+                    b.HasOne("Hack24.Data.Models.ChallengeType", "ChallengeType")
+                        .WithMany("TeamChallengeCatalogs")
+                        .HasForeignKey("ChallengeTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Hack24.Data.Models.TeamType", "TeamType")
+                        .WithMany()
+                        .HasForeignKey("TeamTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ChallengeType");
+
+                    b.Navigation("TeamType");
+                });
+
+            modelBuilder.Entity("Hack24.Data.Models.TeamChallengeExpPerPlace", b =>
+                {
+                    b.HasOne("Hack24.Data.Models.TeamChallenge", "Challenge")
+                        .WithMany("Exps")
+                        .HasForeignKey("TeamChallengeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Challenge");
+                });
+
+            modelBuilder.Entity("Hack24.Data.Models.TeamSelfChallenge", b =>
+                {
+                    b.HasOne("Hack24.Data.Models.TeamSelfChallengeCatalog", "Catalog")
+                        .WithMany("Challenges")
+                        .HasForeignKey("TeamSelfChallengeCatalogId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Catalog");
+                });
+
+            modelBuilder.Entity("Hack24.Data.Models.TeamSelfChallengeCatalog", b =>
+                {
+                    b.HasOne("Hack24.Data.Models.ChallengeType", "ChallengeType")
+                        .WithMany("TeamSelfChallengeCatalogs")
+                        .HasForeignKey("ChallengeTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Hack24.Data.Models.Team", "Team")
+                        .WithMany()
+                        .HasForeignKey("TeamId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ChallengeType");
+
+                    b.Navigation("Team");
+                });
+
+            modelBuilder.Entity("Hack24.Data.Models.UserTeam", b =>
+                {
+                    b.HasOne("Hack24.Data.Models.Team", "Team")
+                        .WithMany()
+                        .HasForeignKey("TeamId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Web.Data.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Team");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -267,6 +1189,87 @@ namespace Hack24.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Web.Data.Models.User", b =>
+                {
+                    b.HasOne("Hack24.Data.Models.Post", "Post")
+                        .WithMany("Users")
+                        .HasForeignKey("PostId");
+
+                    b.Navigation("Post");
+                });
+
+            modelBuilder.Entity("Hack24.Data.Models.ChallengeType", b =>
+                {
+                    b.Navigation("SoloChallengeCatalogs");
+
+                    b.Navigation("SoloSelfChallengeCatalogs");
+
+                    b.Navigation("TeamChallengeCatalogs");
+
+                    b.Navigation("TeamSelfChallengeCatalogs");
+                });
+
+            modelBuilder.Entity("Hack24.Data.Models.Post", b =>
+                {
+                    b.Navigation("Users");
+                });
+
+            modelBuilder.Entity("Hack24.Data.Models.RequestToCompleteSoloChallenge", b =>
+                {
+                    b.Navigation("Images");
+                });
+
+            modelBuilder.Entity("Hack24.Data.Models.RequestToCompleteTeamChallenge", b =>
+                {
+                    b.Navigation("Images");
+                });
+
+            modelBuilder.Entity("Hack24.Data.Models.SoloChallenge", b =>
+                {
+                    b.Navigation("Exps");
+                });
+
+            modelBuilder.Entity("Hack24.Data.Models.SoloChallengeCatalog", b =>
+                {
+                    b.Navigation("SoloChallenges");
+                });
+
+            modelBuilder.Entity("Hack24.Data.Models.SoloSelfChallengeCatalog", b =>
+                {
+                    b.Navigation("Challenges");
+                });
+
+            modelBuilder.Entity("Hack24.Data.Models.Team", b =>
+                {
+                    b.Navigation("CompleteRequests");
+
+                    b.Navigation("CompletedChallenges");
+                });
+
+            modelBuilder.Entity("Hack24.Data.Models.TeamChallenge", b =>
+                {
+                    b.Navigation("Exps");
+                });
+
+            modelBuilder.Entity("Hack24.Data.Models.TeamChallengeCatalog", b =>
+                {
+                    b.Navigation("Challenges");
+                });
+
+            modelBuilder.Entity("Hack24.Data.Models.TeamSelfChallengeCatalog", b =>
+                {
+                    b.Navigation("Challenges");
+                });
+
+            modelBuilder.Entity("Web.Data.Models.User", b =>
+                {
+                    b.Navigation("CompletedSoloChallenges");
+
+                    b.Navigation("Notifications");
+
+                    b.Navigation("RequestsToCompleteSoloChallenge");
                 });
 #pragma warning restore 612, 618
         }

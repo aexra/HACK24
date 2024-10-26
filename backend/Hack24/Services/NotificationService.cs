@@ -7,10 +7,10 @@ namespace Hack24.Services;
 
 public class NotificationService
 {
-    private readonly DataContext _context;
+    private readonly IdentityContext _context;
     private readonly IHubContext<NotificationHub> _hubContext;
 
-    public NotificationService(DataContext context, IHubContext<NotificationHub> hubContext)
+    public NotificationService(IdentityContext context, IHubContext<NotificationHub> hubContext)
     {
         _context = context;
         _hubContext = hubContext;

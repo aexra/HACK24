@@ -1,0 +1,46 @@
+.full_input {
+    position: relative;
+    width: fit-content;
+    margin-bottom: 16px;
+}
+
+.label_and_addon {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+}
+
+.input_label {
+    font-size: 16px;
+    color: #333;
+}
+
+.right_addon {
+    font-size: 16px;
+    cursor: pointer;
+    color: #666;
+}
+
+.input_wrapper {
+    position: relative;
+}
+
+.myinput {
+    width: 528px;
+    height: 56px;
+    border-radius: 12px;
+    border: 1px solid #66666659;
+    outline: none;
+    font-size: 20px;
+    padding: 8px;
+}
+
+::-ms-reveal {
+    display: none;
+}
+
+.error-message {
+    color: red;
+    font-size: 12px;
+}

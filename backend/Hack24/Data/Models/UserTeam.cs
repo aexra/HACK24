@@ -9,7 +9,7 @@ namespace Hack24.Data.Models;
 public class UserTeam
 {
     [Key, Column(Order = 0)]
-    public int UserId { get; set; }
+    public string UserId { get; set; }
 
     [Key, Column(Order = 1)]
     public int TeamId { get; set; }

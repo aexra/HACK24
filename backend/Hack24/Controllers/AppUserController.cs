@@ -21,6 +21,7 @@ public class AppUserController : ControllerBase
     private readonly ITokenService _tokenService;
     private readonly YamlConfigService _yamlConfigService;
     private readonly RegisterKeyService _registerKeyService;
+    private readonly UserRoleService _userRoleService;
 
     public AppUserController(
         UserManager<User> userManager, 
@@ -28,7 +29,8 @@ public class AppUserController : ControllerBase
         RoleManager<IdentityRole> roleManager, 
         SignInManager<User> signInManager, 
         YamlConfigService yamlConfigService,
-        RegisterKeyService registerKeyService)
+        RegisterKeyService registerKeyService,
+        UserRoleService userRoleService)
     {
         _userManager = userManager;
         _tokenService = tokenService;
@@ -36,6 +38,7 @@ public class AppUserController : ControllerBase
         _roleManager = roleManager;
         _yamlConfigService = yamlConfigService;
         _registerKeyService = registerKeyService;
+        _userRoleService = userRoleService;
     }
 
     [HttpGet("me")]
@@ -182,14 +185,19 @@ public class AppUserController : ControllerBase
             var settings = await _yamlConfigService.LoadSettingsAsync();
             if (dto.RegisterKey == settings.RegisterKey)
             {
+                // Регистрация по ключу администратора
                 user.FamilyInviteKey = await _registerKeyService.GenerateFamilyKeyAsync();
+                await _userRoleService.AddToRolesAsync(user, "Employee");
             }
             else if (_userManager.Users.Select(u => u.FamilyInviteKey).Contains(dto.RegisterKey))
             {
+                // Регистрация по приглашению члена семьи
                 user.FamilyInviteKey = null;
+                await _userRoleService.AddToRolesAsync(user, "FamilyMember");
             }
             else
             {
+                // Невалидный ключ
                 return Unauthorized("Access denied - registration token is invalid.");
             }
 

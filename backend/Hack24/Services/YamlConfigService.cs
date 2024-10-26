@@ -5,7 +5,7 @@ namespace Hack24.Services;
 public class AppSettings
 {
     public string RegisterKey { get; set; }
-    public int RegisterKeyLen { get; set; }
+    public int FamilyKeyLen { get; set; }
 }
 
 public class YamlConfigService

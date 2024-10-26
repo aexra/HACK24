@@ -15,7 +15,7 @@ public class RegisterKeyService
 
         // Choosing the size of string 
         // Using Next() string 
-        var stringlen = (await _yamlConfigService.LoadSettingsAsync()).RegisterKeyLen;
+        var stringlen = (await _yamlConfigService.LoadSettingsAsync()).FamilyKeyLen;
         var str = "";
         for (int i = 0; i < stringlen; i++)
         {

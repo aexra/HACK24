@@ -1,7 +1,9 @@
 ﻿using Hack24.Data.Model;
 using Hack24.Data.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.Xml.Linq;
 using Web.Data.Models;
 
 namespace Web.Data.Contexts;
@@ -40,6 +42,52 @@ public class IdentityContext : IdentityDbContext<User>
     public IdentityContext()
     {
         DbPath = "Data/Databases/Identity.db";
+    }
+
+    public async Task SeedDataAsync(IServiceProvider serviceProvider)
+    {
+        string[] posts = ["HR", "Frontender", "Backender", "Envelope Developer", "Coffee Maker", "NotSelected"];
+        string[] roles = ["User", "Admin", "FamilyMember", "Employee"];
+
+        // ENSURE POSTS
+        foreach (var postName in posts)
+        {
+            if (!(await Posts.ToListAsync()).Exists(p => p.Title == postName))
+            {
+                await Posts.AddAsync(new Post() { Title = postName });
+            }
+        }
+
+        var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+        // ENSURE ROLES
+        foreach (var roleName in roles)
+        {
+            if (!roleManager.Roles.ToList().Exists(r => r.Name == roleName))
+            {
+                await roleManager.CreateAsync(new IdentityRole { Name = roleName });
+            }
+        }
+
+        // ENSURE ADMIN
+        if (!(await Users.ToListAsync()).Exists(u => u.UserName == "Admin"))
+        {
+            var userManager = serviceProvider.GetRequiredService<UserManager<User>>();
+
+            var userName = "admin";
+            var password = "Admin1_";
+
+            var user = new User()
+            {
+                UserName = userName
+            };
+
+            var createdUser = await userManager.CreateAsync(user, password);
+
+            await userManager.AddToRoleAsync(user, "Admin");
+        }
+
+        SaveChanges();
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) => optionsBuilder.UseNpgsql($"Host=localhost;Port=5432;Database=postgres;Username=postgres;Password=1234;Include Error Detail=True");

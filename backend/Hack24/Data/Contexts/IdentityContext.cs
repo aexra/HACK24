@@ -1,12 +1,24 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Hack24.Data.Model;
+using Hack24.Data.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-
 using Web.Data.Models;
 
 namespace Web.Data.Contexts;
-
 public class IdentityContext : IdentityDbContext<User>
 {
+    public DbSet<ChallengeType> ChallengeTypes { get; set; }
+    public DbSet<CompletedSoloChallenge> CompletedSoloChallenges { get; set; }
+    public DbSet<ImageForRequestToCompleteSoloChallenge> ImagesForRequestToCompleteSoloChallenge { get; set; }
+    public DbSet<Level> Levels { get; set; }
+    public DbSet<Notification> Notifications { get; set; }
+    public DbSet<Post> Posts { get; set; }
+    public DbSet<RepeatForSoloChallenge> RepeatsForSoloChallenge { get; set; }
+    public DbSet<RequestToCompleteSoloChallenge> RequestsToCompleteSoloChallenge { get; set; }
+    public DbSet<SoloChallenge> SoloChallenges { get; set; }
+    public DbSet<SoloChallengeExpPerPlace> SoloChallengeExpsPerPlace { get; set; }
+
+
     public string DbPath { get; }
 
     public IdentityContext()

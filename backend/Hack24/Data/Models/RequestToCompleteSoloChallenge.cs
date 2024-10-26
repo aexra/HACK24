@@ -2,16 +2,17 @@
 using Web.Data.Models;
 
 namespace Hack24.Data.Models;
-
-public class Notification
+public class RequestToCompleteSoloChallenge
 {
     [Key]
     public int Id { get; set; }
 
-    public string Message { get; set; }
-
-    public bool IsRead { get; set; } = false;
+    public string Text { get; set; }
+    public int? Number { get; set; }
 
     public string UserId { get; set; }
     public virtual User User { get; set; }
+
+    public int SoloChallengeId { get; set; }
+    public virtual SoloChallenge SoloChallenge { get; set; }
 }

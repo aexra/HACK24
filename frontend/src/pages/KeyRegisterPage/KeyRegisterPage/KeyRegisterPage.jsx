@@ -1,13 +1,13 @@
 import React from 'react';
+import KeyRegisterLanding from '../KeyRegisterLanding/KeyRegisterLanding';
 import AuthBackground from '../../../components/AuthBackGround/AuthBackground';
-import LoginLanding from '../LoginLanding/LoginLanding';
 
-const LoginPage = () => {
+const KeyRegisterPage = () => {
     return (
         <AuthBackground>
-            <LoginLanding/>
+            <KeyRegisterLanding/>
         </AuthBackground>
     );
 };
 
-export default LoginPage;
+export default KeyRegisterPage;

@@ -75,7 +75,7 @@ public class RoleController : ControllerBase
             }
         }
 
-        return Ok(new RolesInfoDto() { Username = dto.Username, Roles = _roleManager.Roles.Select(r => r.Name).ToList() });
+        return Ok(new RolesInfoDto() { Username = dto.Username, Roles = (await _userManager.GetRolesAsync(user)).ToList() });
     }
 
     [HttpDelete]

@@ -188,6 +188,10 @@ public class AppUserController : ControllerBase
             {
                 user.FamilyInviteKey = null;
             }
+            else
+            {
+                return Unauthorized("Permission denied - registration token is invalid.");
+            }
 
             var createdUser = await _userManager.CreateAsync(user, dto.Password);
 

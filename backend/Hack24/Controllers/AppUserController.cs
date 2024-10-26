@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 using DataAccess.DTOs;
 using System.Security.Claims;
+using Hack24.Services;
 
 namespace Web.Controllers;
 
@@ -18,13 +19,26 @@ public class AppUserController : ControllerBase
     private readonly RoleManager<IdentityRole> _roleManager;
     private readonly SignInManager<User> _signInManager;
     private readonly ITokenService _tokenService;
+    private readonly YamlConfigService _yamlConfigService;
+    private readonly RegisterKeyService _registerKeyService;
+    private readonly UserRoleService _userRoleService;
 
-    public AppUserController(UserManager<User> userManager, ITokenService tokenService, RoleManager<IdentityRole> roleManager, SignInManager<User> signInManager)
+    public AppUserController(
+        UserManager<User> userManager, 
+        ITokenService tokenService, 
+        RoleManager<IdentityRole> roleManager, 
+        SignInManager<User> signInManager, 
+        YamlConfigService yamlConfigService,
+        RegisterKeyService registerKeyService,
+        UserRoleService userRoleService)
     {
         _userManager = userManager;
         _tokenService = tokenService;
         _signInManager = signInManager;
         _roleManager = roleManager;
+        _yamlConfigService = yamlConfigService;
+        _registerKeyService = registerKeyService;
+        _userRoleService = userRoleService;
     }
 
     [HttpGet("me")]
@@ -148,6 +162,7 @@ public class AppUserController : ControllerBase
             UserName = user.UserName,
             Email = user.Email,
             Token = await _tokenService.CreateToken(user),
+            FamilyInviteKey = user.FamilyInviteKey,
             Id = user.Id
         });
     }
@@ -165,6 +180,27 @@ public class AppUserController : ControllerBase
                 Email = dto.Email,
             };
 
+            // What register key type?
+            // Check if dto.RegisterKey is admin RegisterKey
+            var settings = await _yamlConfigService.LoadSettingsAsync();
+            if (dto.RegisterKey == settings.RegisterKey)
+            {
+                // Регистрация по ключу администратора
+                user.FamilyInviteKey = await _registerKeyService.GenerateFamilyKeyAsync();
+                await _userRoleService.AddToRolesAsync(user, "Employee");
+            }
+            else if (_userManager.Users.Select(u => u.FamilyInviteKey).Contains(dto.RegisterKey))
+            {
+                // Регистрация по приглашению члена семьи
+                user.FamilyInviteKey = null;
+                await _userRoleService.AddToRolesAsync(user, "FamilyMember");
+            }
+            else
+            {
+                // Невалидный ключ
+                return Unauthorized("Access denied - registration token is invalid.");
+            }
+
             var createdUser = await _userManager.CreateAsync(user, dto.Password);
 
             if (createdUser.Succeeded)
@@ -176,6 +212,7 @@ public class AppUserController : ControllerBase
                     {
                         UserName = user.UserName,
                         Email = user.Email,
+                        FamilyInviteKey = user.FamilyInviteKey,
                         Token = await _tokenService.CreateToken(user)
                     });
                 }

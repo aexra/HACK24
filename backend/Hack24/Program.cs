@@ -16,6 +16,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddSingleton<YamlConfigService>();
+builder.Services.AddSingleton<RegisterKeyService>();
 
 builder.Services.AddSwaggerGen(option =>
 {

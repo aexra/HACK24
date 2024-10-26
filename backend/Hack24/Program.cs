@@ -96,6 +96,21 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
+////////////////////////////////////////////////////////////
+
+
+
+
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<IdentityContext>();
+    await context.SeedDataAsync(scope.ServiceProvider);
+}
+
+
+
+
+////////////////////////////////////////////////////////////
 
 if (app.Environment.IsDevelopment())
 {

@@ -8,6 +8,9 @@ using Microsoft.EntityFrameworkCore;
 
 using System.Security.Claims;
 using Hack24.Services;
+using Web.Data.Contexts;
+using Hack24.Data.Models;
+using Microsoft.VisualBasic;
 
 namespace Web.Controllers;
 
@@ -22,23 +25,26 @@ public class AppUserController : ControllerBase
     private readonly YamlConfigService _yamlConfigService;
     private readonly RegisterKeyService _registerKeyService;
     private readonly UserRoleService _userRoleService;
+    private readonly IdentityContext _identityContext;
 
     public AppUserController(
         UserManager<User> userManager, 
-        ITokenService tokenService, 
         RoleManager<IdentityRole> roleManager, 
         SignInManager<User> signInManager, 
-        YamlConfigService yamlConfigService,
-        RegisterKeyService registerKeyService,
-        UserRoleService userRoleService)
+        ITokenService tokenService, 
+        YamlConfigService yamlConfigService, 
+        RegisterKeyService registerKeyService, 
+        UserRoleService userRoleService, 
+        IdentityContext identityContext)
     {
         _userManager = userManager;
-        _tokenService = tokenService;
-        _signInManager = signInManager;
         _roleManager = roleManager;
+        _signInManager = signInManager;
+        _tokenService = tokenService;
         _yamlConfigService = yamlConfigService;
         _registerKeyService = registerKeyService;
         _userRoleService = userRoleService;
+        _identityContext = identityContext;
     }
 
     [HttpGet("me")]
@@ -251,5 +257,94 @@ public class AppUserController : ControllerBase
         {
             return StatusCode(500, ex.Message);
         }
+    }
+
+    [HttpPut]
+    [Authorize]
+    public async Task<IActionResult> UpdateSelf([FromBody] ProfileInfoDto dto)
+    {
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var user = await _userManager.Users.Include(u => u.Post).FirstAsync(u => u.Id == userId);
+
+        if (dto.UserName != null) user.UserName = dto.UserName;
+
+        if (dto.Post != null)
+        {
+            var post = (await _identityContext.Posts.ToListAsync()).Find(p => p.Id == dto.Post.Id);
+            if (post != null) user.Post = post;
+        }
+        
+        if (dto.Hobby != null) user.Hobby = dto.Hobby;
+        if (dto.Email != null) user.Email = dto.Email;
+        if (dto.Image != null) user.Image = dto.Image;
+        if (dto.VK != null) user.VK = dto.VK;
+        if (dto.Telegram != null) user.Telegram = dto.Telegram;
+        if (dto.Bio != null) user.Bio = dto.Bio;
+        if (dto.Pets != null) user.Pets = dto.Pets;
+
+        await _identityContext.SaveChangesAsync();
+
+        return Ok(new ProfileInfoDto
+        {
+            Id = user.Id,
+            UserName = user.UserName,
+            Email = user.Email,
+            Image = user.Image,
+            Bio = user.Bio,
+            Hobby = user.Hobby,
+            Pets = user.Pets,
+            FamilyInviteKey = user.FamilyInviteKey,
+            Telegram = user.Telegram,
+            VK = user.VK,
+            Post = new DTOs.Post.PostDto()
+            {
+                Id = user.Post.Id,
+                Title = user.Post.Title,
+            }
+        });
+    }
+
+    [HttpPut("{userId}")]
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> UpdateUser([FromBody] ProfileInfoDto dto, [FromRoute] string userId)
+    {
+        var user = await _userManager.Users.Include(u => u.Post).FirstAsync(u => u.Id == userId);
+
+        if (dto.UserName != null) user.UserName = dto.UserName;
+
+        if (dto.Post != null)
+        {
+            var post = (await _identityContext.Posts.ToListAsync()).Find(p => p.Id == dto.Post.Id);
+            if (post != null) user.Post = post;
+        }
+
+        if (dto.Hobby != null) user.Hobby = dto.Hobby;
+        if (dto.Email != null) user.Email = dto.Email;
+        if (dto.Image != null) user.Image = dto.Image;
+        if (dto.VK != null) user.VK = dto.VK;
+        if (dto.Telegram != null) user.Telegram = dto.Telegram;
+        if (dto.Bio != null) user.Bio = dto.Bio;
+        if (dto.Pets != null) user.Pets = dto.Pets;
+
+        await _identityContext.SaveChangesAsync();
+
+        return Ok(new ProfileInfoDto
+        {
+            Id = user.Id,
+            UserName = user.UserName,
+            Email = user.Email,
+            Image = user.Image,
+            Bio = user.Bio,
+            Hobby = user.Hobby,
+            Pets = user.Pets,
+            FamilyInviteKey = user.FamilyInviteKey,
+            Telegram = user.Telegram,
+            VK = user.VK,
+            Post = new DTOs.Post.PostDto()
+            {
+                Id = user.Post.Id,
+                Title = user.Post.Title,
+            }
+        });
     }
 }

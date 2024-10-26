@@ -1,12 +1,12 @@
 import React from 'react';
-import classes from './Login.module.css'
-import LoginLayout from '../LoginLanding/LoginLanding';
+import AuthBackground from '../../../components/AuthBackGround/AuthBackground';
+import LoginLanding from '../LoginLanding/LoginLanding';
 
 const LoginPage = () => {
     return (
-        <div className={classes.LoginPage}>
-            <LoginLayout className={classes.LoginLayout}/>
-        </div>
+        <AuthBackground>
+            <LoginLanding />
+        </AuthBackground>
     );
 };
 

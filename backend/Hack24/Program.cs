@@ -7,6 +7,7 @@ using Web.Data.Contexts;
 using Web.Data.Models;
 using Web.Interfaces;
 using Web.Services;
+using Hack24.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -42,6 +43,8 @@ builder.Services.AddSwaggerGen(option =>
     });
 });
 
+builder.Services.AddSignalR();
+
 builder.Services.AddDbContext<IdentityContext>();
 builder.Services.AddDbContext<DataContext>();
 builder.Services.AddIdentity<User, IdentityRole>(options =>
@@ -73,6 +76,7 @@ builder.Services.AddAuthentication(options =>
 });
 
 builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<NotificationService>();
 
 builder.Services.AddCors(options =>
 {
@@ -102,5 +106,9 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+//app.UseEndpoints(endpoints =>
+//{
+//    endpoints.MapHub<NotificationHub>("/notificationHub");
+//});
 
 app.Run();

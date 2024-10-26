@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
 .mbt {
     padding: 18px 0px 19px 0px;
     border-radius: 40px;
@@ -8,4 +10,10 @@
     font-size: large;
     font-weight: bold;
     align-items: center;
+    height: 64px;
+    width: 100%;
+    font-size: 22px; 
+    font-family: 'Montserrat', sans-serif; 
+    font-weight: 700;
+    cursor: pointer;
 }

@@ -1,8 +1,8 @@
 import classes from './TextMain.module.css';
 
-const TextMain = ({ children }) => {
+const TextMain = ({ children, className }) => {
     return (
-        <span className={classes.TextMain}>
+        <span className={`${classes.TextMain} ${className}`}>
             {children}
         </span>
     );

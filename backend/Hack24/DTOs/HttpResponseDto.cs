@@ -1,4 +1,4 @@
-﻿namespace DataAccess.DTOs;
+﻿namespace Web.DTOs;
 public class HttpResponseDto
 {
     public string Type { get; set; }

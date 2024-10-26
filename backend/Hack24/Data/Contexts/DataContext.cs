@@ -1,5 +1,4 @@
-﻿using Hack24.Data.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace Web.Data.Contexts;
 

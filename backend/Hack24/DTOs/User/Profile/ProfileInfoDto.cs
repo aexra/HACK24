@@ -1,6 +1,6 @@
-﻿using DataAccess.DTOs.Post;
+﻿using Web.DTOs.Post;
 
-namespace DataAccess.DTOs;
+namespace Web.DTOs;
 public class ProfileInfoDto
 {
     public string Id { get; set; }

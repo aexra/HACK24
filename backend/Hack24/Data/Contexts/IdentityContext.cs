@@ -71,7 +71,7 @@ public class IdentityContext : IdentityDbContext<User>
         }
 
         // ENSURE ADMIN
-        if (!(await Users.ToListAsync()).Exists(u => u.UserName == "Admin"))
+        if (!(await Users.ToListAsync()).Exists(u => u.UserName == "admin"))
         {
             var userManager = serviceProvider.GetRequiredService<UserManager<User>>();
 

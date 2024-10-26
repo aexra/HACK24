@@ -1,4 +1,4 @@
-﻿namespace DataAccess.DTOs;
+﻿namespace Web.DTOs;
 public class RolesInfoDto
 {
     public string Username { get; set; }

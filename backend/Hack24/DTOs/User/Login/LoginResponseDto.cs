@@ -1,4 +1,4 @@
-﻿namespace DataAccess.DTOs;
+﻿namespace Web.DTOs;
 public class LoginResponseDto
 {
     public string UserName { get; set; }

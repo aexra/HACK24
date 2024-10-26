@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Web.Data.Models;
 using Web.Interfaces;
+using Web.DTOs;
 using Microsoft.EntityFrameworkCore;
 
-using DataAccess.DTOs;
 using System.Security.Claims;
 using Hack24.Services;
 
@@ -65,7 +65,7 @@ public class AppUserController : ControllerBase
             FamilyInviteKey = user.FamilyInviteKey,
             Telegram = user.Telegram,
             VK = user.VK,
-            Post = new DataAccess.DTOs.Post.PostDto()
+            Post = new Web.DTOs.Post.PostDto()
             {
                 Id = user.Post.Id,
                 Title = user.Post.Title,
@@ -96,7 +96,7 @@ public class AppUserController : ControllerBase
             FamilyInviteKey = user.FamilyInviteKey,
             Telegram = user.Telegram,
             VK = user.VK,
-            Post = new DataAccess.DTOs.Post.PostDto()
+            Post = new Web.DTOs.Post.PostDto()
             {
                 Id = user.Post.Id,
                 Title = user.Post.Title,

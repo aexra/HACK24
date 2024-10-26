@@ -1,4 +1,4 @@
-﻿namespace DataAccess.DTOs.Post;
+﻿namespace Web.DTOs.Post;
 public class PostDto
 {
     public int Id { get; set; }

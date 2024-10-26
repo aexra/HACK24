@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Web.Data.Models;
 using Microsoft.EntityFrameworkCore;
 
-using DataAccess.DTOs;
+using Web.DTOs;
 
 namespace Web.Controllers;
 

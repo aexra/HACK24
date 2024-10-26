@@ -26,7 +26,7 @@ public class TokenService : ITokenService
         var roles = await _userManager.GetRolesAsync(user);
         var claims = new List<Claim>()
         {
-            new(JwtRegisteredClaimNames.Email, user.Email),
+            //new(JwtRegisteredClaimNames.Email, user.Email),
             new(JwtRegisteredClaimNames.GivenName, user.UserName),
         };
         var claimsIdentity = new ClaimsIdentity(claims, "Token");

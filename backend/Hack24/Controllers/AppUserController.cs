@@ -184,7 +184,6 @@ public class AppUserController : ControllerBase
         return Ok(new LoginResponseDto()
         {
             UserName = user.UserName,
-            Email = user.Email,
             Token = await _tokenService.CreateToken(user),
             FamilyInviteKey = user.FamilyInviteKey,
             Id = user.Id
@@ -201,9 +200,10 @@ public class AppUserController : ControllerBase
             var user = new User
             {
                 UserName = dto.UserName,
-                Email = dto.Email,
             };
 
+            var createdUser = await _userManager.CreateAsync(user, dto.Password);
+            
             // What register key type?
             // Check if dto.RegisterKey is admin RegisterKey
             var settings = await _yamlConfigService.LoadSettingsAsync();
@@ -225,8 +225,6 @@ public class AppUserController : ControllerBase
                 return Unauthorized("Access denied - registration token is invalid.");
             }
 
-            var createdUser = await _userManager.CreateAsync(user, dto.Password);
-
             if (createdUser.Succeeded)
             {
                 var roleResult = await _userManager.AddToRoleAsync(user, "User");
@@ -235,7 +233,6 @@ public class AppUserController : ControllerBase
                     return Ok(new LoginResponseDto
                     {
                         UserName = user.UserName,
-                        Email = user.Email,
                         FamilyInviteKey = user.FamilyInviteKey,
                         Token = await _tokenService.CreateToken(user)
                     });

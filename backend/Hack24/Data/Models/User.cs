@@ -13,7 +13,9 @@ public class User : IdentityUser
     public string? Telegram { get; set; }
     public string? VK { get; set; }
 
-    public int? PostId { get; set; }
+    public new string? Email = null;
+
+    public int? PostId { get; set; } = 6;
     public virtual Post Post { get; set; }
 
     public virtual ICollection<Notification> Notifications { get; set; }

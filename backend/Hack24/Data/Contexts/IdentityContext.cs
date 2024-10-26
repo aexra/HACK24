@@ -3,12 +3,13 @@ using Hack24.Data.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System.Xml.Linq;
 using Web.Data.Models;
 
 namespace Web.Data.Contexts;
 public class IdentityContext : IdentityDbContext<User>
 {
+    public DbSet<AcceptedSoloChallenge> AcceptedSoloChallenges { get; set; }
+    public DbSet<AcceptedTeamChallenge> AcceptedTeamChallenges { get; set; }
     public DbSet<ChallengeType> ChallengeTypes { get; set; }
     public DbSet<CompletedSoloChallenge> CompletedSoloChallenges { get; set; }
     public DbSet<CompletedTeamChallenge> CompletedTeamChallenges { get; set; }

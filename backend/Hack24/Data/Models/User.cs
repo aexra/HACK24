@@ -19,5 +19,4 @@ public class User : IdentityUser
     public virtual ICollection<Notification> Notifications { get; set; }
     public virtual ICollection<CompletedSoloChallenge> CompletedSoloChallenges { get; set; }
     public virtual ICollection<RequestToCompleteSoloChallenge> RequestsToCompleteSoloChallenge { get; set; }
-
 }

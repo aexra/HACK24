@@ -190,7 +190,7 @@ public class AppUserController : ControllerBase
             }
             else
             {
-                return Unauthorized("Permission denied - registration token is invalid.");
+                return Unauthorized("Access denied - registration token is invalid.");
             }
 
             var createdUser = await _userManager.CreateAsync(user, dto.Password);

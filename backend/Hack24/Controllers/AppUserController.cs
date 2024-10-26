@@ -46,7 +46,7 @@ public class AppUserController : ControllerBase
     public async Task<IActionResult> Me()
     {
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        var user = await _userManager.FindByIdAsync(userId);
+        var user = await _userManager.Users.Include(u => u.Post).FirstAsync(u => u.Id == userId);
 
         if (user == null)
         {
@@ -57,7 +57,19 @@ public class AppUserController : ControllerBase
         {
             Id = userId,
             UserName = user.UserName,
-            Email = user.Email
+            Email = user.Email,
+            Image = user.Image,
+            Bio = user.Bio,
+            Hobby = user.Hobby,
+            Pets = user.Pets,
+            FamilyInviteKey = user.FamilyInviteKey,
+            Telegram = user.Telegram,
+            VK = user.VK,
+            Post = new DataAccess.DTOs.Post.PostDto()
+            {
+                Id = user.Post.Id,
+                Title = user.Post.Title,
+            }
         });
     }
 
@@ -65,7 +77,7 @@ public class AppUserController : ControllerBase
     [Authorize]
     public async Task<IActionResult> GetProfile([FromRoute] string id)
     {
-        var user = await _userManager.FindByIdAsync(id);
+        var user = await _userManager.Users.Include(u => u.Post).FirstAsync(u => u.Id == id);
 
         if (user == null)
         {
@@ -76,7 +88,19 @@ public class AppUserController : ControllerBase
         {
             Id = id,
             UserName = user.UserName,
-            Email = user.Email
+            Email = user.Email,
+            Image = user.Image,
+            Bio = user.Bio,
+            Hobby = user.Hobby,
+            Pets = user.Pets,
+            FamilyInviteKey = user.FamilyInviteKey,
+            Telegram = user.Telegram,
+            VK = user.VK,
+            Post = new DataAccess.DTOs.Post.PostDto()
+            {
+                Id = user.Post.Id,
+                Title = user.Post.Title,
+            }
         });
     }
 
@@ -91,7 +115,7 @@ public class AppUserController : ControllerBase
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> GetAll()
     {
-        return Ok(await _userManager.Users.ToListAsync());
+        return Ok(await _userManager.Users.Include(u => u.Post).ToListAsync());
     }
 
     [HttpDelete]

@@ -1,2 +1,2 @@
-Шаблон презентации.
-Генератор QR-кодов: https://www.qr-code-generator.com/
+<h1>Шаблон презентации.</h1>
+<h2>Генератор QR-кодов: https://qr-online.ru/</h2>

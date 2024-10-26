@@ -1,7 +1,6 @@
-﻿using Hack24.Data.Models;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 
-namespace Web.Data.Models;
+namespace Hack24.Data.Models;
 
 public class User : IdentityUser
 {
@@ -18,10 +17,10 @@ public class User : IdentityUser
     public int? PostId { get; set; } = 6;
     public virtual Post Post { get; set; }
 
-    public virtual ICollection<Notification> Notifications { get; set; }
-    public virtual ICollection<CompletedSoloChallenge> CompletedSoloChallenges { get; set; }
     public virtual ICollection<RequestToCompleteSoloChallenge> RequestsToCompleteSoloChallenge { get; set; }
+    public virtual ICollection<CompletedSoloChallenge> CompletedSoloChallenges { get; set; }
+    public virtual ICollection<AcceptedSoloChallenge> AcceptedSoloChallenges { get; set; }
+    public virtual ICollection<Notification> Notifications { get; set; }
     
     public virtual UserTeam UserTeam { get; set; }
-    public virtual Team Team => UserTeam.Team;
 }

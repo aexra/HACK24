@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Web.Data.Models;
+using Hack24.Data.Models;
 using Microsoft.EntityFrameworkCore;
 
-using Web.DTOs;
+using Hack24.DTOs;
 
-namespace Web.Controllers;
+namespace Hack24.Controllers;
 
 [Route("api/roles")]
 [ApiController]

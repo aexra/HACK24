@@ -1,18 +1,18 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Web.Data.Models;
-using Web.Interfaces;
-using Web.DTOs;
+using Hack24.Data.Models;
+using Hack24.Interfaces;
+using Hack24.DTOs;
 using Microsoft.EntityFrameworkCore;
 
 using System.Security.Claims;
 using Hack24.Services;
-using Web.Data.Contexts;
+using Hack24.Data.Contexts;
 using Hack24.Data.Models;
 using Microsoft.VisualBasic;
 
-namespace Web.Controllers;
+namespace Hack24.Controllers;
 
 [ApiController]
 [Route("api/user")]
@@ -52,7 +52,10 @@ public class AppUserController : ControllerBase
     public async Task<IActionResult> Me()
     {
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        var user = await _userManager.Users.Include(u => u.Post).FirstAsync(u => u.Id == userId);
+        var user = await _userManager.Users
+            .Include(u => u.Post)
+            //.Include(u => u.Team)
+            .FirstAsync(u => u.Id == userId);
 
         if (user == null)
         {
@@ -71,7 +74,7 @@ public class AppUserController : ControllerBase
             FamilyInviteKey = user.FamilyInviteKey,
             Telegram = user.Telegram,
             VK = user.VK,
-            Post = new Web.DTOs.Post.PostDto()
+            Post = new DTOs.Post.PostDto()
             {
                 Id = user.Post.Id,
                 Title = user.Post.Title,
@@ -102,7 +105,7 @@ public class AppUserController : ControllerBase
             FamilyInviteKey = user.FamilyInviteKey,
             Telegram = user.Telegram,
             VK = user.VK,
-            Post = new Web.DTOs.Post.PostDto()
+            Post = new Hack24.DTOs.Post.PostDto()
             {
                 Id = user.Post.Id,
                 Title = user.Post.Title,

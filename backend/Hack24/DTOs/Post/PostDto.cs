@@ -1,4 +1,4 @@
-﻿namespace Web.DTOs.Post;
+﻿namespace Hack24.DTOs.Post;
 public class PostDto
 {
     public int Id { get; set; }

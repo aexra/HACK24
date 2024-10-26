@@ -3,9 +3,8 @@ using Hack24.Data.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Web.Data.Models;
 
-namespace Web.Data.Contexts;
+namespace Hack24.Data.Contexts;
 public class IdentityContext : IdentityDbContext<User>
 {
     public DbSet<AcceptedSoloChallenge> AcceptedSoloChallenges { get; set; }

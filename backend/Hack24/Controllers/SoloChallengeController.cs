@@ -3,15 +3,14 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
-using Web.Data.Contexts;
-using Web.Data.Models;
-using Web.DTOs.Challenge;
-using Web.DTOs.Challenge.Me;
+using Hack24.Data.Contexts;
+using Hack24.Data.Models;
+using Hack24.DTOs.Solo.Me;
 
 namespace Hack24.Controllers;
 
 [ApiController]
-[Route("api/challenge")]
+[Route("api/solo")]
 public class SoloChallengeController : ControllerBase
 {
     private readonly IdentityContext _identityContext;

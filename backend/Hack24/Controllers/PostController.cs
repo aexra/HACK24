@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Web.Data.Contexts;
+using Hack24.Data.Contexts;
 
 namespace Hack24.Controllers;
 

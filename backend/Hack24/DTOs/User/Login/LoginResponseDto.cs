@@ -1,4 +1,4 @@
-﻿namespace Web.DTOs;
+﻿namespace Hack24.DTOs;
 public class LoginResponseDto
 {
     public string UserName { get; set; }

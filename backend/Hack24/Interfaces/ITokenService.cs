@@ -1,6 +1,6 @@
-﻿using Web.Data.Models;
+﻿using Hack24.Data.Models;
 
-namespace Web.Interfaces;
+namespace Hack24.Interfaces;
 
 public interface ITokenService
 {

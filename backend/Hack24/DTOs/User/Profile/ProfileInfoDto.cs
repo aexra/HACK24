@@ -1,6 +1,6 @@
-﻿using Web.DTOs.Post;
+﻿using Hack24.DTOs.Post;
 
-namespace Web.DTOs;
+namespace Hack24.DTOs;
 public class ProfileInfoDto
 {
     public string? Id { get; set; }

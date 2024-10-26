@@ -1,7 +1,7 @@
 ﻿using Hack24.Data.Models;
 using Hack24.Hubs;
 using Microsoft.AspNetCore.SignalR;
-using Web.Data.Contexts;
+using Hack24.Data.Contexts;
 
 namespace Hack24.Services;
 

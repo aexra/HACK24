@@ -1,8 +1,7 @@
 ﻿using Hack24.Data.Models;
 
-namespace Web.DTOs.Challenge.Me;
-
-internal class MyChallengesDto
+namespace Hack24.DTOs.Solo.Me;
+public class MyChallengesDto
 {
     public ICollection<AcceptedSoloChallenge> Accepted { get; set; }
     public ICollection<CompletedSoloChallenge> Completed { get; set; }

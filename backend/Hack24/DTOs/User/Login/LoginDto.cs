@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Web.DTOs;
+namespace Hack24.DTOs;
 public class LoginDto
 {
     [Required]

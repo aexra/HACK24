@@ -4,8 +4,8 @@ using Hack24.Data.Contexts;
 using Hack24.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
-using Hack24.DTOs.Teams.Me;
 using Microsoft.AspNetCore.Authorization;
+using Hack24.DTOs.Teams;
 
 namespace Hack24.Controllers;
 
@@ -20,6 +20,31 @@ public class TeamChallengeController : ControllerBase
     {
         _identityContext = identityContext;
         _userManager = userManager;
+    }
+
+    [HttpGet("all")]
+    [Authorize]
+    public async Task<IActionResult> GetAll()
+    {
+        var teams = await _identityContext.Teams
+            .Include(t => t.Type)
+            .Include(t => t.UserTeams)
+            .Include(t => t.AcceptedChallenges)
+            .Include(t => t.CompletedChallenges)
+            .ToListAsync();
+
+        var dtos = teams.Select(t => new TeamDto() 
+        { 
+            Id = t.Id, 
+            Name = t.Name,
+            Type = t.Type,
+            Members = t.UserTeams.Select(ut => ut.User),
+            AcceptedChallenges = t.AcceptedChallenges.Select(ac => ac.TeamChallenge).ToList(),
+            CompletedChallenges = t.CompletedChallenges.Select(cc => cc.TeamChallenge).ToList(),
+            //CompleteRequests = t.CompleteRequests
+        });
+
+        return Ok(dtos);
     }
 
     [HttpGet]
@@ -38,20 +63,24 @@ public class TeamChallengeController : ControllerBase
             return NotFound();
         }
 
-        //var teamId = user.Team.Id;
         var team = (await _identityContext.Teams
             .Include(t => t.Type)
             .Include(t => t.UserTeams)
+            .Include(t => t.AcceptedChallenges)
+            .Include(t => t.CompletedChallenges)
             .ToListAsync()).Find(u => u.Id == user.UserTeam.TeamId);
 
         var members = team.UserTeams.Select(ut => ut.User);
 
-        return Ok(new MyTeamDto()
+        return Ok(new TeamDto()
         {
-            Accepted = team.AcceptedChallenges,
-            Completed = team.CompletedChallenges,
-            Team = team,
-            Members = members
+            Id = team.Id,
+            Name = team.Name,
+            Type = team.Type,
+            Members = members,
+            AcceptedChallenges = team.AcceptedChallenges.Select(ac => ac.TeamChallenge).ToList(),
+            CompletedChallenges = team.CompletedChallenges.Select(cc => cc.TeamChallenge).ToList(),
+            //CompleteRequests = t.CompleteRequests
         });
     }
 }

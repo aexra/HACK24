@@ -17,5 +17,5 @@ public class CompletedTeamChallenge
     public virtual Team Team { get; set; }
 
     [ForeignKey(nameof(TeamChallengeId))]
-    public virtual TeamChallenge Challenge { get; set; }
+    public virtual TeamChallenge TeamChallenge { get; set; }
 }

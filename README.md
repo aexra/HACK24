@@ -7,6 +7,7 @@
 > - [Стек технологий](#стек-технологий)
 > - [Frontend](#frontend)
 > - [Backend](#backend)
+> - [Другие исходники](#другие-источники)
 
 ## Стек технологий
 
@@ -49,3 +50,9 @@
 
 > [!IMPORTANT]
 > На фронтенде также требуется реализация применения SignalR
+
+## Другие источники
+
+<img height="300" alt="миро" src="https://github.com/user-attachments/assets/02f11199-2452-42de-bfc1-85ff5bbeef2e">
+<img height="300" alt="миро" src="https://github.com/user-attachments/assets/4ac5645b-9e3d-491d-9923-7ff06f45529c">
+<img height="300" alt="миро" src="https://github.com/user-attachments/assets/b37ca102-d0c5-42b0-99ff-8330d1002975">

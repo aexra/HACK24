@@ -1,6 +1,6 @@
 # Challenge Arena - Качаван
 
-![LANDING](https://github.com/user-attachments/assets/0b92ebd4-c0e9-4761-9f48-ee99d869e174)
+![LANDING](https://github.com/user-attachments/assets/78e3da6f-1ec3-4957-a43f-ad297087f767)
 
 > [!NOTE]
 > ### Содержание

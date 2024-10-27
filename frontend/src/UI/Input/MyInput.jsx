@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import './Input.css';
+import { ReactComponent as HideIcon } from '../../resources/HideIcon.svg';
+import classes from './MyInput.module.css'
 
-const MyInput = ({ label, rightAddon, onChange, errorMessage }) => {
+const MyInput = ({ label, hidable, onChange, errorMessage, className }) => {
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
     const togglePasswordVisibility = () => {
@@ -9,23 +10,23 @@ const MyInput = ({ label, rightAddon, onChange, errorMessage }) => {
     };
 
     return (
-        <div className="full_input">
-            <div className="label_and_addon">
-            <label className="input_label">{label}</label>
-            {rightAddon && (
-                <div className="right_addon" onClick={togglePasswordVisibility}>
-                    {rightAddon}
-                </div>
-            )}
-        </div>
-            <div className="input_wrapper">
-                <input
-                    className="myinput"
-                    type={rightAddon ? (isPasswordVisible ? "text" : "password") : "text"}
-                    onChange={onChange}
-                />
-                {errorMessage && <p className="error-message">{errorMessage}</p>}
+        <div className={`${classes.FullInput} ${className}`}>
+                <div className={classes.LabelAndAddon}>
+                <label className={classes.InputLabel}>{label}</label>
+                {hidable && (
+                    <div className={classes.RightAddon} onClick={togglePasswordVisibility}>
+                        <HideIcon/>
+                    </div>
+                )}
             </div>
+                <div className={classes.InputLabel}>
+                    <input
+                        className={classes.MyInput}
+                        type={hidable ? (isPasswordVisible ? "text" : "password") : "text"}
+                        onChange={onChange}
+                    />
+                    {errorMessage && <p className={classes.ErrorMessage}>{errorMessage}</p>}
+                </div>
         </div>
     );
 };

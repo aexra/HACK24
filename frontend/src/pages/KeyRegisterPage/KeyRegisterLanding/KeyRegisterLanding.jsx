@@ -17,7 +17,7 @@ const KeyRegisterLanding = () => {
                 <TextSub className={classes.TextMain}>Введите ключ аунтефикации сотрудников</TextSub>
             </div>
             <MyInput hidable={true} label={"Ключ"} className={classes.Input} errorMessage={"abobas"} />
-            <MyButton>Проверить ключ</MyButton>
+            <MyButton className={classes.KeyButton} text={"Подтвердить ключ"}></MyButton>
             <div className={classes.ButtonWrapper}>
                 <LinkButton pageName={"/login"}>Уже есть аккаунт</LinkButton>
             </div>

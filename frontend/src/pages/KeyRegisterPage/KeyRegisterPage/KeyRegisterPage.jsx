@@ -1,11 +1,11 @@
 import React from 'react';
 import KeyRegisterLanding from '../KeyRegisterLanding/KeyRegisterLanding';
-import AuthBackground from '../../../components/AuthBackground/AuthBackground';
+import AuthBackground from '../../../components/AuthBackGround/AuthBackground';
 
 const KeyRegisterPage = () => {
     return (
         <AuthBackground>
-            <KeyRegisterLanding />
+            <KeyRegisterLanding/>
         </AuthBackground>
     );
 };

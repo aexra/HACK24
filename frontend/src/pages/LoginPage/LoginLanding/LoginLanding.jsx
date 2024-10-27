@@ -16,12 +16,12 @@ const LoginLanding = () => {
             <div className={classes.TextWrapper}>
                 <TextSub className={classes.TextMain}>Введите логин</TextSub>
             </div>
-            <MyInput label={"Пароль"} className={classes.Input} errorMessage={"abobas"} />
+            <MyInput label={"Логин"} className={classes.Input} errorMessage={"abobas"} />
             <div className={classes.TextWrapper}>
                 <TextSub className={classes.TextMain}>Введите пароль</TextSub>
             </div>
             <MyInput hidable={true} label={"Пароль"} className={classes.Input} errorMessage={"abobas"} />
-            <MyButton>Войти</MyButton>
+            <MyButton className={classes.KeyButton} text={"Войти"}></MyButton>
             <div className={classes.ButtonWrapper}>
                 <LinkButton pageName={"/key-register"}>Регистрация</LinkButton>
             </div>

@@ -1,5 +1,9 @@
 .List {
+<<<<<<< HEAD
     overflow-y: scroll;
+=======
+    overflow-y: auto;
+>>>>>>> 0b9ea7315089eac99aa2efc36c040a1cb1bfa77c
     padding: 10px;
 }
 
@@ -8,10 +12,18 @@
     width: 10px;
 }
 
+<<<<<<< HEAD
 .List::-webkit-scrollbar-thumb {
     border-radius: 4px;
 }
 
 .List>*:not(:first-child) {
+=======
+.List::-webkit-scrollbar-thumb{
+    border-radius: 4px;
+}
+
+.List > *:not(:first-child) {
+>>>>>>> 0b9ea7315089eac99aa2efc36c040a1cb1bfa77c
     margin-top: 10px;
 }

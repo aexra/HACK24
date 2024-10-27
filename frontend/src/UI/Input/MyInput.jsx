@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { ReactComponent as HideIcon } from '../../resources/HideIcon.svg';
 import classes from './MyInput.module.css'
 
-const MyInput = ({ label, hidable, onChange, errorMessage, className }) => {
+const MyInput = ({ label, hidable, errorMessage, className, value, onChange }) => {
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
     const togglePasswordVisibility = () => {
@@ -21,9 +21,10 @@ const MyInput = ({ label, hidable, onChange, errorMessage, className }) => {
             </div>
                 <div className={classes.InputLabel}>
                     <input
+                        value={value}
+                        onChange={(e) => onChange(e.target.value)}
                         className={classes.MyInput}
                         type={hidable ? (isPasswordVisible ? "text" : "password") : "text"}
-                        onChange={onChange}
                     />
                     {errorMessage && <p className={classes.ErrorMessage}>{errorMessage}</p>}
                 </div>

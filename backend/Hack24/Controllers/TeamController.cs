@@ -10,27 +10,27 @@ using Hack24.DTOs.Teams;
 namespace Hack24.Controllers;
 
 [ApiController]
-[Route("api/team")]
-public class TeamChallengeController : ControllerBase
+[Route("api/teams")]
+public class TeamController : ControllerBase
 {
     private readonly IdentityContext _identityContext;
     private readonly UserManager<User> _userManager;
 
-    public TeamChallengeController(IdentityContext identityContext, UserManager<User> userManager)
+    public TeamController(IdentityContext identityContext, UserManager<User> userManager)
     {
         _identityContext = identityContext;
         _userManager = userManager;
     }
 
-    [HttpGet("all")]
+    [HttpGet]
     [Authorize]
     public async Task<IActionResult> GetAll()
     {
         var teams = await _identityContext.Teams
             .Include(t => t.Type)
             .Include(t => t.UserTeams)
-            .Include(t => t.AcceptedChallenges)
-            .Include(t => t.CompletedChallenges)
+            //.Include(t => t.AcceptedChallenges)
+            //.Include(t => t.CompletedChallenges)
             .ToListAsync();
 
         var dtos = teams.Select(t => new TeamDto() 
@@ -39,15 +39,38 @@ public class TeamChallengeController : ControllerBase
             Name = t.Name,
             Type = t.Type,
             Members = t.UserTeams.Select(ut => ut.User),
-            AcceptedChallenges = t.AcceptedChallenges.Select(ac => ac.TeamChallenge).ToList(),
-            CompletedChallenges = t.CompletedChallenges.Select(cc => cc.TeamChallenge).ToList(),
+            //AcceptedChallenges = t.AcceptedChallenges.Select(ac => ac.TeamChallenge).ToList(),
+            //CompletedChallenges = t.CompletedChallenges.Select(cc => cc.TeamChallenge).ToList(),
             //CompleteRequests = t.CompleteRequests
         });
 
         return Ok(dtos);
     }
 
-    [HttpGet]
+    [HttpGet("{teamId}")]
+    [Authorize]
+    public async Task<IActionResult> GetTeamFull([FromRoute] int teamId)
+    {
+        var team = await _identityContext.Teams
+            .Include(t => t.Type)
+            .Include(t => t.UserTeams)
+            .Include(t => t.AcceptedChallenges)
+            .Include(t => t.CompletedChallenges)
+            .FirstAsync(t => t.Id == teamId);
+
+        return Ok(new TeamDto()
+        {
+            Id = team.Id,
+            Name = team.Name,
+            Type = team.Type,
+            Members = team.UserTeams.Select(ut => ut.User),
+            AcceptedChallenges = team.AcceptedChallenges.Select(ac => ac.TeamChallenge).ToList(),
+            CompletedChallenges = team.CompletedChallenges.Select(cc => cc.TeamChallenge).ToList(),
+            //CompleteRequests = t.CompleteRequests
+        });
+    }
+
+    [HttpGet("me")]
     [Authorize]
     public async Task<IActionResult> GetMyTeam()
     {
@@ -70,14 +93,12 @@ public class TeamChallengeController : ControllerBase
             .Include(t => t.CompletedChallenges)
             .ToListAsync()).Find(u => u.Id == user.UserTeam.TeamId);
 
-        var members = team.UserTeams.Select(ut => ut.User);
-
         return Ok(new TeamDto()
         {
             Id = team.Id,
             Name = team.Name,
             Type = team.Type,
-            Members = members,
+            Members = team.UserTeams.Select(ut => ut.User),
             AcceptedChallenges = team.AcceptedChallenges.Select(ac => ac.TeamChallenge).ToList(),
             CompletedChallenges = team.CompletedChallenges.Select(cc => cc.TeamChallenge).ToList(),
             //CompleteRequests = t.CompleteRequests

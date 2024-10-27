@@ -1,0 +1,42 @@
+.AchievementListUnit {
+    display: flex;
+    flex-direction: row;
+    padding: 15px 30px;
+    background: rgba(255, 255, 255, 0.20); 
+    box-shadow: 0px 0px 131px -1px rgba(132.81, 119.20, 119.20, 0.30);
+    border-radius: 20px;
+}
+
+.UnitPart1 {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.UnitPart2 {
+    display: flex;
+    margin: auto;
+}
+
+.ChallengeName {
+    color: black; 
+    font-size: 16px; 
+    font-weight: 700; 
+    font-family: 'Montserrat', sans-serif;
+}
+
+.ChallengeType {
+    color: black; 
+    font-size: 16px; 
+    font-family: 'Montserrat', sans-serif; 
+    font-weight: 600;
+}
+
+.ChallengeDescription {
+    color: black;
+    font-size: 12px; 
+    font-family: 'Montserrat', sans-serif; 
+    font-weight: 600; 
+    word-wrap: "break-word";
+}

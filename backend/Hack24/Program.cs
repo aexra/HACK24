@@ -3,10 +3,10 @@ using Microsoft.OpenApi.Models;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 
-using Web.Data.Contexts;
-using Web.Data.Models;
-using Web.Interfaces;
-using Web.Services;
+using Hack24.Data.Contexts;
+using Hack24.Data.Models;
+using Hack24.Interfaces;
+using Hack24.Services;
 using Hack24.Services;
 
 var builder = WebApplication.CreateBuilder(args);

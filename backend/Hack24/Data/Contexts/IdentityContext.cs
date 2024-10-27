@@ -3,9 +3,8 @@ using Hack24.Data.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Web.Data.Models;
 
-namespace Web.Data.Contexts;
+namespace Hack24.Data.Contexts;
 public class IdentityContext : IdentityDbContext<User>
 {
     public DbSet<AcceptedSoloChallenge> AcceptedSoloChallenges { get; set; }
@@ -71,7 +70,7 @@ public class IdentityContext : IdentityDbContext<User>
         }
 
         // ENSURE ADMIN
-        if (!(await Users.ToListAsync()).Exists(u => u.UserName == "Admin"))
+        if (!(await Users.ToListAsync()).Exists(u => u.UserName == "admin"))
         {
             var userManager = serviceProvider.GetRequiredService<UserManager<User>>();
 

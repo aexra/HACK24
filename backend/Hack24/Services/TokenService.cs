@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Web.Data.Models;
-using Web.Interfaces;
+using Hack24.Data.Models;
+using Hack24.Interfaces;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 
-namespace Web.Services;
+namespace Hack24.Services;
 
 public class TokenService : ITokenService
 {

@@ -5,7 +5,7 @@ public class ChallengeType
 {
     [Key]
     public int Id { get; set; }
-    public string ChallengeName { get; set; }
+    public string Name { get; set; }
 
     public virtual ICollection<SoloChallengeCatalog> SoloChallengeCatalogs { get; set; }
     public virtual ICollection<SoloSelfChallengeCatalog> SoloSelfChallengeCatalogs { get; set; }

@@ -1,4 +1,4 @@
-﻿namespace DataAccess.DTOs;
+﻿namespace Hack24.DTOs;
 public class RolesInfoDto
 {
     public string Username { get; set; }

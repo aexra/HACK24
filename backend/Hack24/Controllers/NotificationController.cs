@@ -3,7 +3,7 @@ using Hack24.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
-using Web.Data.Contexts;
+using Hack24.Data.Contexts;
 
 namespace Hack24.Controllers;
 

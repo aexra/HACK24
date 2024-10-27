@@ -1,4 +1,4 @@
-﻿using Web.Data.Models;
+﻿using Hack24.Data.Models;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;

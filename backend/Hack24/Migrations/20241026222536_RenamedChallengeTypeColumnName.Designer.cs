@@ -12,8 +12,8 @@ using Hack24.Data.Contexts;
 namespace Hack24.Migrations
 {
     [DbContext(typeof(IdentityContext))]
-    [Migration("20241026214636_AcceptedChallengesUpdate")]
-    partial class AcceptedChallengesUpdate
+    [Migration("20241026222536_RenamedChallengeTypeColumnName")]
+    partial class RenamedChallengeTypeColumnName
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -83,7 +83,7 @@ namespace Hack24.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("ChallengeName")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
 

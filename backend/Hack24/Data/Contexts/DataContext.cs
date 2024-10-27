@@ -1,7 +1,6 @@
-﻿using Hack24.Data.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
-namespace Web.Data.Contexts;
+namespace Hack24.Data.Contexts;
 
 public class DataContext : DbContext
 {

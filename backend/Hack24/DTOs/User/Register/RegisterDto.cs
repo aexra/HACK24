@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace DataAccess.DTOs;
+namespace Hack24.DTOs;
 public class RegisterDto
 {
     [Required]

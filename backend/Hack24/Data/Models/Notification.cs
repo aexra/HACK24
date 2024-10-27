@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Web.Data.Models;
+using Hack24.Data.Models;
 
 namespace Hack24.Data.Models;
 

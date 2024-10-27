@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using Web.Data.Contexts;
+using Hack24.Data.Contexts;
 
 #nullable disable
 
@@ -80,7 +80,7 @@ namespace Hack24.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("ChallengeName")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
 

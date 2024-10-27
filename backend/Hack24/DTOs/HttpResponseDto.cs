@@ -1,4 +1,4 @@
-﻿namespace DataAccess.DTOs;
+﻿namespace Hack24.DTOs;
 public class HttpResponseDto
 {
     public string Type { get; set; }

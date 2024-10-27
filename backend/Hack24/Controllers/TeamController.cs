@@ -22,6 +22,33 @@ public class TeamController : ControllerBase
         _userManager = userManager;
     }
 
+    [HttpPost("join/{teamId}")]
+    [Authorize]
+    public async Task<IActionResult> JoinTeam([FromRoute] int teamId)
+    {
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var user = await _userManager.Users
+            .Include(u => u.UserTeam)
+            .FirstAsync(u => u.Id == userId);
+
+        if (user.UserTeam != null)
+        {
+            return BadRequest("User is already in team");
+        }
+
+        if (await _identityContext.Teams.FindAsync(teamId) == null)
+        {
+            return NotFound();
+        }
+
+        var userteam = new UserTeam() { UserId = user.Id, TeamId = teamId };
+
+        await _identityContext.UserTeams.AddAsync(userteam);
+        await _identityContext.SaveChangesAsync();
+
+        return Ok();
+    }
+
     [HttpGet]
     [Authorize]
     public async Task<IActionResult> GetAll()
@@ -76,9 +103,7 @@ public class TeamController : ControllerBase
     {
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         var user = await _userManager.Users
-            .Include(u => u.Post)
             .Include(u => u.UserTeam)
-            .Include(u => u.UserTeam.Team)
             .FirstAsync(u => u.Id == userId);
 
         if (user.UserTeam == null)

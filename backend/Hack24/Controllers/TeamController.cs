@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Hack24.DTOs.Teams;
+using Hack24.DTOs.Teams.challenge;
 
 namespace Hack24.Controllers;
 
@@ -128,5 +129,28 @@ public class TeamController : ControllerBase
             CompletedChallenges = team.CompletedChallenges.Select(cc => cc.TeamChallenge).ToList(),
             //CompleteRequests = t.CompleteRequests
         });
+    }
+
+    [HttpPost("challenge")]
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> CreateChallenge([FromBody] CreateTeamChallengeDto createTeamChallengeDto)
+    {
+        if (_identityContext.TeamChallengeCatalogs.Find(createTeamChallengeDto.TeamChallengeCatalogId) == null)
+        {
+            return NotFound();
+        }
+
+        var ch = new TeamChallenge()
+        {
+            Start = createTeamChallengeDto.Start,
+            End = createTeamChallengeDto.End,
+            TeamChallengeCatalogId = createTeamChallengeDto.TeamChallengeCatalogId,
+        };
+
+        await _identityContext.TeamChallenges.AddAsync(ch);
+
+        await _identityContext.SaveChangesAsync();
+        
+        return Ok(ch);
     }
 }

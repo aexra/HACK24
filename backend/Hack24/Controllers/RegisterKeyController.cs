@@ -9,10 +9,12 @@ namespace Hack24.Controllers;
 public class RegisterKeyController : ControllerBase
 {
     private readonly YamlConfigService _yamlConfigService;
+    private readonly RegisterKeyService _registerKeyService;
 
-    public RegisterKeyController(YamlConfigService yamlConfigService)
+    public RegisterKeyController(YamlConfigService yamlConfigService, RegisterKeyService registerKeyService)
     {
         _yamlConfigService = yamlConfigService;
+        _registerKeyService = registerKeyService;
     }
 
     [HttpGet]
@@ -22,15 +24,22 @@ public class RegisterKeyController : ControllerBase
         return Ok(_yamlConfigService.Settings.RegisterKey);
     }
 
-    [HttpPost]
+    [HttpPut]
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> RegenerateKey()
     {
-        // TODO: Keygen
-        return Ok();
+        var settings = await _yamlConfigService.LoadSettingsAsync();
+
+        var key = await _registerKeyService.GenerateFamilyKeyAsync();
+
+        settings.RegisterKey = key;
+
+        await _yamlConfigService.SaveSettingsAsync(settings);
+
+        return Ok(_yamlConfigService.Settings.RegisterKey);
     }
 
-    [HttpPost("{key}")]
+    [HttpPut("{key}")]
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> SetKey([FromRoute] string key)
     {

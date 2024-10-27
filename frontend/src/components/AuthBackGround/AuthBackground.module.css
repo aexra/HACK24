@@ -1,0 +1,8 @@
+.AuthBackground {
+    background: linear-gradient(180deg, #FBA642 0%, #FAD13A 100%); 
+    display: flex;
+    flex-direction: column; 
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}

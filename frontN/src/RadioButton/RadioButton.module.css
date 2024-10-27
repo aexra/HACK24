@@ -1,0 +1,11 @@
+.RadioButton{
+    border-radius: 10vh;
+    border: 0.1vh solid black;
+    background-color: rgb(228,228,228);
+    font: bold;
+    height: 5vh;
+    width: 25vh;
+    justify-content: center;
+    text-align: center;
+    font-size: 2vh;
+}

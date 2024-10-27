@@ -23,6 +23,41 @@ public class TeamController : ControllerBase
         _userManager = userManager;
     }
 
+    [HttpPost]
+    [Authorize]
+    public async Task<IActionResult> CreateTeam([FromBody] CreateTeamDto dto)
+    {
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var user = await _userManager.Users.FirstAsync(u => u.Id == userId);
+
+        var type = await _identityContext.TeamTypes.FindAsync(dto.TypeId);
+
+        if (type == null)
+        {
+            return NotFound();
+        }
+
+        var team = new Team()
+        {
+            Name = dto.Name,
+            Type = type,
+        };
+
+        await _identityContext.Teams.AddAsync(team);
+
+        var ut = new UserTeam()
+        {
+            Team = team,
+            User = user
+        };
+
+        await _identityContext.UserTeams.AddAsync(ut);
+
+        await _identityContext.SaveChangesAsync();
+
+        return Ok(team);
+    }
+
     [HttpPost("join/{teamId}")]
     [Authorize]
     public async Task<IActionResult> JoinTeam([FromRoute] int teamId)

@@ -1,4 +1,5 @@
-﻿using Hack24.Services;
+﻿using Hack24.Data.Contexts;
+using Hack24.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,11 +11,26 @@ public class RegisterKeyController : ControllerBase
 {
     private readonly YamlConfigService _yamlConfigService;
     private readonly RegisterKeyService _registerKeyService;
+    private readonly IdentityContext _identityContext;
 
-    public RegisterKeyController(YamlConfigService yamlConfigService, RegisterKeyService registerKeyService)
+    public RegisterKeyController(YamlConfigService yamlConfigService, RegisterKeyService registerKeyService, IdentityContext identityContext)
     {
         _yamlConfigService = yamlConfigService;
         _registerKeyService = registerKeyService;
+        _identityContext = identityContext;
+    }
+
+    [HttpGet("{key}")]
+    public async Task<IActionResult> CheckKey([FromRoute] string key)
+    {
+        if (key == _yamlConfigService.Settings.RegisterKey || _identityContext.Users.Select(u => u.FamilyInviteKey).Contains(key))
+        {
+            return Ok();
+        }
+        else
+        {
+            return NotFound();
+        }
     }
 
     [HttpGet]

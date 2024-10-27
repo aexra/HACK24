@@ -1,0 +1,25 @@
+.MyTeamsList {
+    height: 400px;
+}
+
+.NewTeam {
+    position: absolute;
+    right: 150px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    gap: 10px;
+
+    width: 268px;
+    height: 50px;
+
+    background: rgba(250, 209, 58, 0.5);
+    border-radius: 10px;
+
+    flex: none;
+    order: 0;
+    flex-grow: 1;
+    margin-top: 30px;
+}

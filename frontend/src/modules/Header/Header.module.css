@@ -1,6 +1,7 @@
 .Header {
-    height: 7.5vh;
+    height: 132px;
     align-items: center;
+    justify-content: center;
     width: 100%;
     background-color: transparent;
     display: flex;
@@ -9,10 +10,6 @@
     font-weight: bold;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-}
-
-.Logo {
-    margin-left: 15vw;
 }
 
 .Nav {

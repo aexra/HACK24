@@ -1,0 +1,12 @@
+.ImgContainer {
+    margin-left: 90px;
+    width: 168px;
+    height: 168px;
+    gap: 10px;
+    border-radius: 30px;
+    opacity: 0px;
+    background: #FFFFFF9E;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

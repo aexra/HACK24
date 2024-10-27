@@ -1,0 +1,18 @@
+.FilterButton {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    gap: 20px;
+    margin-top: 20px;
+    width: 134px;
+    height: 52px;
+
+    background: #FFFFFF;
+    border-radius: 10px;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+
+}

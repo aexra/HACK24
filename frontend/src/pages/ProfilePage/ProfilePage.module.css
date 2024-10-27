@@ -1,0 +1,8 @@
+.ProfileContainer {
+    display: flex;
+    justify-content: space-around;
+}
+
+.ProfileList {
+    height: 270px;
+}

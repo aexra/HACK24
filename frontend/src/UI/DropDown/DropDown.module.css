@@ -15,7 +15,15 @@
     width: 15vw;
 }
 
-.Hoverable:hover {
+.Link {
+    padding: 10px;
+    text-decoration: none;
+    color: #000;
+    display: block;
+    width: 15vw;
+}
+
+.Link:hover {
     background-color: #f0f0f0;
     color: #ffd500;
 }

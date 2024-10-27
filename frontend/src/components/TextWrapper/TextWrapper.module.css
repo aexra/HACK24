@@ -1,0 +1,37 @@
+.TextWrapperList {
+    overflow-y: scroll;
+    padding: 30px;
+}
+
+.TextWrapperList::-webkit-scrollbar {
+    background-color: var(--button-color);
+    border-radius: 4px;
+    width: 10px;
+}
+
+.TextWrapperList::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: var(--button-focus-shadow-color);
+}
+
+.TextWrapperList>*:not(:first-child) {
+    margin-top: 10px;
+}
+
+.ListItem {
+    padding: 20px;
+    gap: 15px;
+    border-radius: 20px;
+    opacity: 0px;
+    background: #6D6D6D33;
+    align-items: center;
+}
+
+.TextWrapper {
+    justify-content: space-between;
+    max-width: 1340px;
+    padding: 0;
+    margin-top: 30px;
+    margin-left: 90px;
+    gap: 300px;
+}
